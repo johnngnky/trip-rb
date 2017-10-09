@@ -1,0 +1,72 @@
+{
+  "name": "tripetto-forms-examples-react",
+  "title": "Tripetto Forms Collector example (React)",
+  "version": "1.0.0",
+  "description": "Demo for implementing the Tripetto Forms collector using React.",
+  "license": "MIT",
+  "private": true,
+  "homepage": "https://gitlab.com/tripetto/forms/examples/react",
+  "author": {
+    "name": "Mark van den Brink",
+    "email": "mark@vandenbr.ink",
+    "url": "http://mark.vandenbr.ink"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/tripetto/forms/examples/react.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/tripetto/forms/examples/react/issues"
+  },
+  "scripts": {
+    "start": "tripetto ./static/form.json",
+    "format": "prettier --tab-width 4 --print-width 140 --write \"src/**/*.ts\" \"src/**/*.tsx\" \"webpack.config.js\"",
+    "lint": "tslint -c ./tslint.json ./src/**/*.ts",
+    "test": "webpack-dev-server",
+    "make": "npm run format && npm run lint && webpack -p"
+  },
+  "dependencies": {
+    "@tripetto/forms-collector": "^0.1.10",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "superagent": "^3.6.3"
+  },
+  "devDependencies": {
+    "@marblecore/tslint-configuration": "^5.7.0",
+    "@tripetto/forms-editor": "*",
+    "@types/react": "^16.0.10",
+    "@types/react-dom": "^16.0.1",
+    "@types/superagent": "^3.5.6",
+    "prettier": "^1.7.4",
+    "tripetto-forms-checkbox": "^1.0.1",
+    "tripetto-forms-checkboxes": "^1.0.1",
+    "tripetto-forms-dropdown": "^1.0.1",
+    "tripetto-forms-email": "^1.0.1",
+    "tripetto-forms-number": "^1.0.1",
+    "tripetto-forms-password": "^1.0.1",
+    "tripetto-forms-radiobuttons": "^1.0.1",
+    "tripetto-forms-text": "^1.0.1",
+    "tripetto-forms-textarea": "^1.0.1",
+    "tripetto-forms-url": "^1.0.1",
+    "ts-loader": "^2.3.7",
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "tripetto": {
+    "providers": [
+      "tripetto-forms-checkbox",
+      "tripetto-forms-checkboxes",
+      "tripetto-forms-dropdown",
+      "tripetto-forms-email",
+      "tripetto-forms-number",
+      "tripetto-forms-password",
+      "tripetto-forms-radiobuttons",
+      "tripetto-forms-text",
+      "tripetto-forms-textarea",
+      "tripetto-forms-url"
+    ],
+    "noFurtherLoading": true
+  }
+}
