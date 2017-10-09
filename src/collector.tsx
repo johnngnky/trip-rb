@@ -45,7 +45,6 @@ export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
 
     /** Next button is clicked. */
     private clickButtonNext(): void {
-        console.dir(this);
         if (this.Observer) {
             this.Observer.Done();
         }
@@ -53,13 +52,13 @@ export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
 
     /** An instance ends. */
     public OnInstanceEnd(instance: Tripetto.Instance, type: "ended" | "stopped" | "paused"): void {
-        super.OnInstanceEnd(instance, type);
-
         if (type === "ended") {
             // Output the collected data to the console
             console.dir(instance.Data.Values);
 
             alert("Your form is completed! Now watch the collected data in your browser console.");
         }
+
+        super.OnInstanceEnd(instance, type);
     }
 }
