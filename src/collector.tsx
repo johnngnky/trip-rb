@@ -17,7 +17,7 @@ export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
                         return <div key={node.Id}>{node.Provider.OnRender({}, node.Instance, node.Observer)}</div>;
                     }
 
-                    /** If no provider, consider the node as static text. */
+                    /** If there is no provider the node is static text. */
                     return (
                         <div key={node.Id}>
                             {node.Props.NameVisible && node.Props.Name && <h3>{node.Props.Name}</h3>}
