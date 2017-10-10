@@ -16,22 +16,12 @@ interface IProps {
 export class Collector extends React.Component<IProps> {
     private readonly collector: CollectorRenderer;
     private mounted = false;
-    private completed = false;
+    private status: "running" | "ended" | "stopped" | "paused" = "running";
 
     constructor(props: IProps) {
         super();
 
-        this.collector = new CollectorRenderer(
-            props.definition,
-            props.verbose || false,
-            () => this.update(),
-            (instance: Tripetto.Instance, type: "ended" | "stopped" | "paused") => {
-                this.completed = true;
-
-                // Output the collected data to the console
-                console.dir(instance.Data.Values);
-            }
-        );
+        this.collector = new CollectorRenderer(props.definition, props.verbose || false, this.update.bind(this), this.end.bind(this));
 
         if (!props.snapshot || !this.collector.Resume(props.snapshot)) {
             this.collector.Start("single");
@@ -44,12 +34,26 @@ export class Collector extends React.Component<IProps> {
         }
     }
 
-    public render(): JSX.Element {
-        if (this.completed) {
-            return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
-        }
+    private end(instance: Tripetto.Instance, type: "ended" | "stopped" | "paused"): void {
+        this.status = type;
 
-        return this.collector.Rendering;
+        if (type === "ended") {
+            // Output the collected data to the console
+            console.dir(instance.Data.Values);
+        }
+    }
+
+    public render(): JSX.Element {
+        switch (this.status) {
+            case "running":
+                return this.collector.Rendering;
+            case "ended":
+                return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
+            case "stopped":
+                return <div>Your form is stopped! No data is available.</div>;
+            case "paused":
+                return <div>Your form is paused!</div>;
+        }
     }
 
     public componentDidMount(): void {
