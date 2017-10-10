@@ -11,7 +11,7 @@ export class Checkboxes extends Tripetto.NodeProvider<{}, JSX.Element, ICheckbox
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 {this.Props.Checkboxes.map((checkbox: ICheckbox) => {
                     const data = this.Data<boolean>(instance, checkbox.Id);
-                    const checked = data ? data.Value : false;
+                    const checked = data ? data.InitialValue : false;
 
                     return (
                         <label key={checkbox.Id}>

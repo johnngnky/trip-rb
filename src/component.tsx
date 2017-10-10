@@ -16,18 +16,28 @@ interface IProps {
 export class Collector extends React.Component<IProps> {
     private readonly collector: CollectorRenderer;
     private mounted = false;
+    private completed = false;
 
     constructor(props: IProps) {
         super();
 
-        this.collector = new CollectorRenderer(props.definition, props.verbose || false, () => this.update());
+        this.collector = new CollectorRenderer(
+            props.definition,
+            props.verbose || false,
+            () => this.update(),
+            (instance: Tripetto.Instance, type: "ended" | "stopped" | "paused") => {
+                this.completed = true;
+
+                // Output the collected data to the console
+                console.dir(instance.Data.Values);
+            }
+        );
 
         if (!props.snapshot || !this.collector.Resume(props.snapshot)) {
             this.collector.Start("single");
         }
     }
 
-    /** Invoked only when the component should update. */
     private update(): void {
         if (this.mounted) {
             this.forceUpdate();
@@ -35,6 +45,10 @@ export class Collector extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
+        if (this.completed) {
+            return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
+        }
+
         return this.collector.Rendering;
     }
 

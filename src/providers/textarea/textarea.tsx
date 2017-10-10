@@ -5,8 +5,7 @@ import { ITextarea } from "tripetto-forms-textarea";
 @Tripetto.node("tripetto-forms-textarea")
 export class Password extends Tripetto.NodeProvider<{}, JSX.Element, ITextarea> {
     public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const data = this.Data<string>(instance, "value");
-        const value = data ? data.Value : "";
+        const value = this.DataAssert<string>(instance, "value");
 
         return (
             <label title={this.Node.Props.Explanation}>
@@ -14,22 +13,18 @@ export class Password extends Tripetto.NodeProvider<{}, JSX.Element, ITextarea> 
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <textarea
                     rows={3}
-                    required={data && data.Slot.Required}
-                    defaultValue={value}
+                    required={value.Slot.Required}
+                    defaultValue={value.InitialValue}
                     placeholder={this.Node.Props.Placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
-                        if (data) {
-                            data.Data = e.target.value;
-                        }
-                    }}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.Data = e.target.value)}
                 />
             </label>
         );
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const data = this.Data<string>(instance, "value");
+        const value = this.DataAssert<string>(instance, "value");
 
-        return data ? !data.Slot.Required || data.Value !== "" : false;
+        return !value.Slot.Required || value.Value !== "";
     }
 }

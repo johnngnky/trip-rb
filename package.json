@@ -26,7 +26,7 @@
     "make": "npm run format && npm run lint && webpack -p"
   },
   "dependencies": {
-    "@tripetto/forms-collector": "^0.1.11",
+    "@tripetto/forms-collector": "^0.1.13",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "superagent": "^3.6.3"
