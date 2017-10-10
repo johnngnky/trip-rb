@@ -18,9 +18,10 @@ export class Email extends Tripetto.NodeProvider<{}, JSX.Element, IEmail> {
                 <input
                     type="email"
                     required={email.Slot.Required}
-                    defaultValue={email.InitialValue}
+                    defaultValue={email.InitialString}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (email.Data = e.target.value)}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = email.String)}
                 />
             </label>
         );

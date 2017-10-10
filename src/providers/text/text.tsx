@@ -15,9 +15,10 @@ export class Text extends Tripetto.NodeProvider<{}, JSX.Element, IText> {
                 <input
                     type="text"
                     required={value.Slot.Required}
-                    defaultValue={value.InitialValue}
+                    defaultValue={value.InitialString}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Data = e.target.value)}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}
                 />
             </label>
         );

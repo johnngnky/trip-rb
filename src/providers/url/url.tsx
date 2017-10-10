@@ -14,9 +14,10 @@ export class URL extends Tripetto.NodeProvider<{}, JSX.Element, IURL> {
                 <input
                     type="url"
                     required={url.Slot.Required}
-                    defaultValue={url.InitialValue}
+                    defaultValue={url.InitialString}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (url.Data = e.target.value)}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = url.String)}
                 />
             </label>
         );

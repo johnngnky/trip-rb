@@ -5,7 +5,7 @@ import { INumber } from "tripetto-forms-number";
 @Tripetto.node("tripetto-forms-number")
 export class Number extends Tripetto.NodeProvider<{}, JSX.Element, INumber> {
     public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const value = this.DataAssert<string>(instance, "number");
+        const value = this.DataAssert<number>(instance, "number");
 
         return (
             <label title={this.Node.Props.Explanation}>
@@ -14,9 +14,10 @@ export class Number extends Tripetto.NodeProvider<{}, JSX.Element, INumber> {
                 <input
                     type="number"
                     required={value.Slot.Required}
-                    defaultValue={value.InitialValue}
+                    defaultValue={value.InitialString}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Data = e.target.value)}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}
                 />
             </label>
         );
