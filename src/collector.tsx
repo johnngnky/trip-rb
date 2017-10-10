@@ -2,8 +2,22 @@ import * as Tripetto from "@tripetto/forms-collector";
 import * as React from "react";
 
 export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
+    /** Previous button is clicked. */
+    private clickButtonPrevious(): void {
+        if (this.Observer) {
+            this.Observer.Cancel();
+        }
+    }
+
+    /** Next button is clicked. */
+    private clickButtonNext(): void {
+        if (this.Observer) {
+            this.Observer.Done();
+        }
+    }
+
     /** Retrieves the collector rendering. */
-    public get Rendering(): JSX.Element {
+    public render(): JSX.Element {
         if (!this.Instance || !this.Instance.IsRunning) {
             return <div>No instance available!</div>;
         }
@@ -12,12 +26,12 @@ export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
             <section>
                 <h1>{this.Ontology ? this.Ontology.Name : "Unnamed"}</h1>
                 {this.Nodes.map((node: Tripetto.IObservableNode<{}, JSX.Element>) => {
-                    /** If a provider is attached, render it. */
+                    /** Render the provider if it is available. */
                     if (node.Provider) {
                         return <div key={node.Id}>{node.Provider.OnRender({}, node.Instance, node.Observer)}</div>;
                     }
 
-                    /** If there is no provider the node is static text. */
+                    /** If there is no provider the node should be considered as static text. */
                     return (
                         <div key={node.Id}>
                             {node.Props.NameVisible && node.Props.Name && <h3>{node.Props.Name}</h3>}
@@ -34,19 +48,5 @@ export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
                 <span>{this.ProgressPercentage}%</span>
             </section>
         );
-    }
-
-    /** Previous button is clicked. */
-    private clickButtonPrevious(): void {
-        if (this.Observer) {
-            this.Observer.Cancel();
-        }
-    }
-
-    /** Next button is clicked. */
-    private clickButtonNext(): void {
-        if (this.Observer) {
-            this.Observer.Done();
-        }
     }
 }

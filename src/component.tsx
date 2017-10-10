@@ -46,7 +46,7 @@ export class Collector extends React.Component<IProps> {
     public render(): JSX.Element {
         switch (this.status) {
             case "running":
-                return this.collector.Rendering;
+                return this.collector.render();
             case "ended":
                 return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
             case "stopped":
