@@ -1,6 +1,5 @@
 const webpack = require("webpack");
 const path = require("path");
-const package = require("./package.json");
 
 module.exports = {
     entry: "./src/app.tsx",
