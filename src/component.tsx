@@ -16,7 +16,6 @@ interface IProps {
 export class Collector extends React.Component<IProps> {
     private readonly collector: CollectorRenderer;
     private mounted = false;
-    private status: "running" | "ended" | "stopped" | "paused" = "running";
 
     constructor(props: IProps) {
         super();
@@ -30,13 +29,12 @@ export class Collector extends React.Component<IProps> {
 
     private update(): void {
         if (this.mounted) {
+            // We are good React citizens. We only do this when necessary. But the state is inside the Tripetto Collector.
             this.forceUpdate();
         }
     }
 
     private end(instance: Tripetto.Instance, type: "ended" | "stopped" | "paused"): void {
-        this.status = type;
-
         if (type === "ended") {
             // Output the collected data to the console
             console.dir(instance.Data.Values);
@@ -44,16 +42,15 @@ export class Collector extends React.Component<IProps> {
     }
 
     public render(): JSX.Element {
-        switch (this.status) {
-            case "running":
-                return this.collector.render();
-            case "ended":
-                return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
-            case "stopped":
-                return <div>Your form is stopped! No data is available.</div>;
-            case "paused":
-                return <div>Your form is paused!</div>;
+        if (this.collector.IsEnded) {
+            return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
+        } else if (this.collector.IsStopped) {
+            return <div>Your form is stopped! No data is available.</div>;
+        } else if (this.collector.IsPaused) {
+            return <div>Your form is paused! You can resume it, if you have the resume data.</div>;
         }
+
+        return this.collector.render() || <div>Your form is not running.</div>;
     }
 
     public componentDidMount(): void {

@@ -16,5 +16,4 @@
 /node_modules
 
 # Project specific
-/static/bundle.css
 /static/bundle.js

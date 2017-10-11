@@ -17,9 +17,9 @@ export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
     }
 
     /** Retrieves the collector rendering. */
-    public render(): JSX.Element {
+    public render(): JSX.Element | undefined {
         if (!this.Instance || !this.Instance.IsRunning) {
-            return <div>No instance available!</div>;
+            return undefined;
         }
 
         return (
