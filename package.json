@@ -28,7 +28,7 @@
   "dependencies": {},
   "devDependencies": {
     "@marblecore/tslint-configuration": "^5.7.0",
-    "@tripetto/forms-collector": "^0.1.15",
+    "@tripetto/forms-collector": "^0.1.17",
     "@tripetto/forms-editor": "*",
     "@types/react": "^16.0.10",
     "@types/react-dom": "^16.0.1",
