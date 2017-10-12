@@ -1,7 +1,7 @@
 import * as Tripetto from "@tripetto/forms-collector";
 import * as React from "react";
 
-export class CollectorRenderer extends Tripetto.Collector<{}, JSX.Element> {
+export class CollectorWrapper extends Tripetto.Collector<{}, JSX.Element> {
     /** Previous button is clicked. */
     private clickButtonPrevious(): void {
         if (this.Observer) {

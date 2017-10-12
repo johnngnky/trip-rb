@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Tripetto from "@tripetto/forms-collector";
-import { CollectorRenderer } from "./collector";
+import { CollectorWrapper } from "./wrapper";
 
 interface IProps {
     /** Form definition. */
@@ -14,13 +14,13 @@ interface IProps {
 }
 
 export class Collector extends React.Component<IProps> {
-    private readonly collector: CollectorRenderer;
+    private readonly collector: CollectorWrapper;
     private mounted = false;
 
     constructor(props: IProps) {
         super();
 
-        this.collector = new CollectorRenderer(props.definition, props.verbose || false, this.update.bind(this), this.end.bind(this));
+        this.collector = new CollectorWrapper(props.definition, props.verbose || false, this.update.bind(this), this.end.bind(this));
 
         if (!props.snapshot || !this.collector.Resume(props.snapshot)) {
             this.collector.Start("single");
