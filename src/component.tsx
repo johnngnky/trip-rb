@@ -41,16 +41,16 @@ export class Collector extends React.Component<IProps> {
         }
     }
 
-    public render(): JSX.Element {
+    public render(): JSX.Element | JSX.Element[] | string {
         if (this.collector.IsEnded) {
-            return <div>Your form is completed! Now watch the collected data in your browser console.</div>;
+            return `Your form is completed! Now watch the collected data in your browser console.`;
         } else if (this.collector.IsStopped) {
-            return <div>Your form is stopped! No data is available.</div>;
+            return `Your form is stopped! No data is available.`;
         } else if (this.collector.IsPaused) {
-            return <div>Your form is paused! You can resume it, if you have the resume data.</div>;
+            return `Your form is paused! You can resume it, if you have the resume data.`;
         }
 
-        return this.collector.render() || <div>Your form is not running.</div>;
+        return this.collector.render() || `Your form is not running.`;
     }
 
     public componentDidMount(): void {

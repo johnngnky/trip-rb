@@ -7,8 +7,8 @@ const IS_EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0
 /* tslint:enable:max-line-length */
 
 @Tripetto.node("tripetto-forms-email")
-export class Email extends Tripetto.NodeProvider<{}, JSX.Element, IEmail> {
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+export class Email extends Tripetto.NodeProvider<JSX.Element, IEmail> {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const email = this.DataAssert<string>(instance, "email");
 
         return (

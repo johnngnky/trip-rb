@@ -1,7 +1,7 @@
 import * as Tripetto from "@tripetto/forms-collector";
 import * as React from "react";
 
-export class CollectorWrapper extends Tripetto.Collector<{}, JSX.Element> {
+export class CollectorWrapper extends Tripetto.Collector<JSX.Element> {
     /** Previous button is clicked. */
     private clickButtonPrevious(): void {
         if (this.Observer) {
@@ -25,10 +25,10 @@ export class CollectorWrapper extends Tripetto.Collector<{}, JSX.Element> {
         return (
             <section>
                 <h1>{this.Ontology ? this.Ontology.Name : "Unnamed"}</h1>
-                {this.Nodes.map((node: Tripetto.IObservableNode<{}, JSX.Element>) => {
+                {this.Nodes.map((node: Tripetto.IObservableNode<JSX.Element>) => {
                     /** Render the provider if it is available. */
                     if (node.Provider) {
-                        return <div key={node.Id}>{node.Provider.OnRender({}, node.Instance, node.Observer)}</div>;
+                        return <div key={node.Id}>{node.Provider.OnRender(node.Instance, node.Observer)}</div>;
                     }
 
                     /** If there is no provider the node should be considered as static text. */

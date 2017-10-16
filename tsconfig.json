@@ -8,9 +8,7 @@
         "baseUrl": "./src",
         "jsx": "react",
         "strict": true,
-        "experimentalDecorators": true,
-        "noUnusedLocals": true,
-        "skipLibCheck": true
+        "experimentalDecorators": true
     },
     "include": [
         "./src/**/*.ts",

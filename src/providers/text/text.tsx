@@ -4,8 +4,8 @@ import { IText } from "tripetto-forms-text";
 import "./condition";
 
 @Tripetto.node("tripetto-forms-text")
-export class Text extends Tripetto.NodeProvider<{}, JSX.Element, IText> {
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+export class Text extends Tripetto.NodeProvider<JSX.Element, IText> {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const value = this.DataAssert<string>(instance, "value");
 
         return (

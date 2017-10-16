@@ -3,14 +3,14 @@ import * as Tripetto from "@tripetto/forms-collector";
 import { IRadiobutton, IRadiobuttons } from "tripetto-forms-radiobuttons";
 
 @Tripetto.node("tripetto-forms-radiobuttons")
-export class Radiobuttons extends Tripetto.NodeProvider<{}, JSX.Element, IRadiobuttons> {
+export class Radiobuttons extends Tripetto.NodeProvider<JSX.Element, IRadiobuttons> {
     private Update(data: Tripetto.Data, id: string | undefined): void {
         const value = Tripetto.F.FindFirst(this.Props.Radiobuttons, (radiobutton: IRadiobutton) => radiobutton.Id === id);
 
         data.Set(value ? value.Value || value.Name : value, id);
     }
 
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const button = this.DataAssert<string>(instance, "button");
         const selected =
             Tripetto.F.FindFirst(this.Props.Radiobuttons, (radiobutton: IRadiobutton) =>

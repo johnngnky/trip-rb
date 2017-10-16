@@ -3,8 +3,8 @@ import * as Tripetto from "@tripetto/forms-collector";
 import { ICheckbox } from "tripetto-forms-checkbox";
 
 @Tripetto.node("tripetto-forms-checkbox")
-export class Checkbox extends Tripetto.NodeProvider<{}, JSX.Element, ICheckbox> {
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const checkbox = this.DataAssert<boolean>(instance, "checked");
 
         return (

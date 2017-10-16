@@ -3,8 +3,8 @@ import * as Tripetto from "@tripetto/forms-collector";
 import { IPassword } from "tripetto-forms-password";
 
 @Tripetto.node("tripetto-forms-password")
-export class Password extends Tripetto.NodeProvider<{}, JSX.Element, IPassword> {
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+export class Password extends Tripetto.NodeProvider<JSX.Element, IPassword> {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const password = this.DataAssert<string>(instance, "password");
 
         return (

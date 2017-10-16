@@ -4,14 +4,14 @@ import { IDropdown, IDropdownOption } from "tripetto-forms-dropdown";
 import "./condition";
 
 @Tripetto.node("tripetto-forms-dropdown")
-export class Dropdown extends Tripetto.NodeProvider<{}, JSX.Element, IDropdown> {
+export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
     private Update(data: Tripetto.Data, id: string | undefined): void {
         const value = Tripetto.F.FindFirst(this.Props.Options, (option: IDropdownOption) => option.Id === id);
 
         data.Set(value ? value.Value || value.Name : undefined, id);
     }
 
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const dropdown = this.DataAssert<string>(instance, "option");
 
         this.Update(dropdown, dropdown.Reference);

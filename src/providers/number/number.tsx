@@ -3,8 +3,8 @@ import * as Tripetto from "@tripetto/forms-collector";
 import { INumber } from "tripetto-forms-number";
 
 @Tripetto.node("tripetto-forms-number")
-export class Number extends Tripetto.NodeProvider<{}, JSX.Element, INumber> {
-    public OnRender(context: {}, instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
+    public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const value = this.DataAssert<number>(instance, "number");
 
         return (
