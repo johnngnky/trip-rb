@@ -28,7 +28,7 @@
   "dependencies": {},
   "devDependencies": {
     "@marblecore/tslint-configuration": "^5.7.0",
-    "@tripetto/forms-collector": "^0.2.1",
+    "@tripetto/forms-collector": "^0.2.2",
     "@tripetto/forms-editor": "*",
     "@types/react": "^16.0.10",
     "@types/react-dom": "^16.0.1",
@@ -47,7 +47,7 @@
     "tripetto-forms-text": "^1.0.3",
     "tripetto-forms-textarea": "^1.0.3",
     "tripetto-forms-url": "^1.0.3",
-    "ts-loader": "^2.3.7",
+    "ts-loader": "^3.0.2",
     "tslint": "^5.7.0",
     "typescript": "^2.5.3",
     "webpack": "^3.7.1",
