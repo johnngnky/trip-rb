@@ -14,9 +14,9 @@ export class Password extends Tripetto.NodeProvider<JSX.Element, IPassword> {
                 <input
                     type="password"
                     required={password.Slot.Required}
-                    defaultValue={password.InitialString}
+                    defaultValue={password.Value}
                     placeholder={this.Node.Props.Placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (password.Data = e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (password.Value = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = password.String)}
                 />
             </label>

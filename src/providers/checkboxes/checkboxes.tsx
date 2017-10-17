@@ -11,7 +11,7 @@ export class Checkboxes extends Tripetto.NodeProvider<JSX.Element, ICheckboxes> 
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 {this.Props.Checkboxes.map((checkbox: ICheckbox) => {
                     const data = this.Data<boolean>(instance, checkbox.Id);
-                    const checked = data ? data.InitialValue : false;
+                    const checked = data ? data.Value : false;
 
                     return (
                         <label key={checkbox.Id}>
@@ -20,7 +20,7 @@ export class Checkboxes extends Tripetto.NodeProvider<JSX.Element, ICheckboxes> 
                                 defaultChecked={checked}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                                     if (data) {
-                                        data.Data = e.target.checked;
+                                        data.Value = e.target.checked;
                                     }
                                 }}
                             />

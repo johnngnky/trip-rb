@@ -14,7 +14,7 @@ export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
                 <input
                     type="number"
                     required={value.Slot.Required}
-                    defaultValue={value.InitialString}
+                    defaultValue={value.String}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Data = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}

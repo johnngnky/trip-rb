@@ -11,8 +11,8 @@ export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
             <label title={this.Node.Props.Explanation}>
                 <input
                     type="checkbox"
-                    defaultChecked={checkbox.InitialValue}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checkbox.Data = e.target.checked)}
+                    defaultChecked={checkbox.Value}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checkbox.Value = e.target.checked)}
                 />
                 {this.Node.Props.Name + (checkbox.Slot.Required ? "*" : "")}
             </label>

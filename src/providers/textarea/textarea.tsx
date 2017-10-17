@@ -14,9 +14,9 @@ export class Password extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
                 <textarea
                     rows={3}
                     required={value.Slot.Required}
-                    defaultValue={value.InitialString}
+                    defaultValue={value.Value}
                     placeholder={this.Node.Props.Placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.Data = e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.Value = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => ((e.target as HTMLTextAreaElement).value = value.String)}
                 />
             </label>
