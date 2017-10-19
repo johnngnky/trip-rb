@@ -8,14 +8,18 @@ export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
         const checkbox = this.DataAssert<boolean>(instance, "checked");
 
         return (
-            <label title={this.Node.Props.Explanation}>
-                <input
-                    type="checkbox"
-                    defaultChecked={checkbox.Value}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checkbox.Value = e.target.checked)}
-                />
-                {this.Node.Props.Name + (checkbox.Slot.Required ? "*" : "")}
-            </label>
+            <div className="form-group checkbox">
+                <label>
+                    <input
+                        type="checkbox"
+                        defaultChecked={checkbox.Value}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checkbox.Value = e.target.checked)}
+                    />
+                    {this.Node.Props.Name}
+                    {checkbox.Slot.Required && <span className="text-danger">*</span>}
+                </label>
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
+            </div>
         );
     }
 

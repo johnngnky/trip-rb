@@ -9,7 +9,7 @@ Tripetto Forms bring a new way of creating and deploying forms in websites and a
 
 And you deploy these smart forms in websites and applications using the supplementary [collector](https://www.npmjs.com/package/@tripetto/forms-collector) library. Anything you build in the editor, the collector will simply run. You just focus on the visuals of the embedded form.
 
-*This demo shows how to implement the collector for some basic form input controls using [React](https://reactjs.org/). It has no fancy markup or styles. It shows the minimal required code to get a form up and running.*
+*This demo shows how to implement the collector for some basic form input controls using [React](https://reactjs.org/) and [Bootstrap](http://getbootstrap.com/). The goal is to show you how to implement the collector with minimal code footprint so you get a good understanding of the principles.*
 
 # How to run
 1. [Download](https://gitlab.com/tripetto/forms/examples/react/repository/master/archive.zip) or clone the [repository](https://gitlab.com/tripetto/forms/examples/react) to your local machine:
@@ -32,7 +32,7 @@ $ npm test
 $ npm start
 ```
 
-This will probably automatically open your default browser with the URL http://localhost:3333. If not, open the browser of your choice and navigate to this URL.
+This last command will probably automatically open your default browser with the URL http://localhost:3333. If not, open the browser of your choice and navigate to this URL.
 
 When you have changed your form, click the `Save` button at the right top of the editor. Then, refresh the form collector to run the altered form.
 

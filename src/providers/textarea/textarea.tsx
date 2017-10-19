@@ -8,8 +8,14 @@ export class Password extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
         const value = this.DataAssert<string>(instance, "value");
 
         return (
-            <label title={this.Node.Props.Explanation}>
-                {this.Node.Props.Name && this.Node.Props.NameVisible && this.Node.Props.Name}
+            <div className="form-group">
+                {this.Node.Props.Name &&
+                    this.Node.Props.NameVisible && (
+                        <label>
+                            {this.Node.Props.Name}
+                            {value.Slot.Required && <span className="text-danger">*</span>}
+                        </label>
+                    )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <textarea
                     rows={3}
@@ -18,8 +24,10 @@ export class Password extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.Value = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => ((e.target as HTMLTextAreaElement).value = value.String)}
+                    className="form-control"
                 />
-            </label>
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
+            </div>
         );
     }
 

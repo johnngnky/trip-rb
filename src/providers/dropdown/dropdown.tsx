@@ -17,12 +17,19 @@ export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
         this.Update(dropdown, dropdown.Reference);
 
         return (
-            <label title={this.Node.Props.Explanation}>
-                {this.Node.Props.Name && this.Node.Props.NameVisible && this.Node.Props.Name}
+            <div className="form-group">
+                {this.Node.Props.Name &&
+                    this.Node.Props.NameVisible && (
+                        <label>
+                            {this.Node.Props.Name}
+                            {dropdown.Slot.Required && <span className="text-danger">*</span>}
+                        </label>
+                    )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <select
                     defaultValue={dropdown.Reference}
                     onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.Update(dropdown, e.target.value)}
+                    className="form-control"
                 >
                     {this.Node.Props.Placeholder && <option value="">{this.Node.Props.Placeholder}</option>}
                     {this.Props.Options.map((option: IDropdownOption) => (
@@ -31,7 +38,8 @@ export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
                         </option>
                     ))}
                 </select>
-            </label>
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
+            </div>
         );
     }
 

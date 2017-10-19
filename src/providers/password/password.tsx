@@ -8,8 +8,14 @@ export class Password extends Tripetto.NodeProvider<JSX.Element, IPassword> {
         const password = this.DataAssert<string>(instance, "password");
 
         return (
-            <label title={this.Node.Props.Explanation}>
-                {this.Node.Props.Name && this.Node.Props.NameVisible && this.Node.Props.Name}
+            <div className="form-group">
+                {this.Node.Props.Name &&
+                    this.Node.Props.NameVisible && (
+                        <label>
+                            {this.Node.Props.Name}
+                            {password.Slot.Required && <span className="text-danger">*</span>}
+                        </label>
+                    )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <input
                     type="password"
@@ -18,8 +24,10 @@ export class Password extends Tripetto.NodeProvider<JSX.Element, IPassword> {
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (password.Value = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = password.String)}
+                    className="form-control"
                 />
-            </label>
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
+            </div>
         );
     }
 

@@ -9,8 +9,14 @@ export class Text extends Tripetto.NodeProvider<JSX.Element, IText> {
         const value = this.DataAssert<string>(instance, "value");
 
         return (
-            <label title={this.Node.Props.Explanation}>
-                {this.Node.Props.Name && this.Node.Props.NameVisible && this.Node.Props.Name}
+            <div className="form-group">
+                {this.Node.Props.Name &&
+                    this.Node.Props.NameVisible && (
+                        <label>
+                            {this.Node.Props.Name}
+                            {value.Slot.Required && <span className="text-danger">*</span>}
+                        </label>
+                    )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <input
                     type="text"
@@ -19,8 +25,10 @@ export class Text extends Tripetto.NodeProvider<JSX.Element, IText> {
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Value = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}
+                    className="form-control"
                 />
-            </label>
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
+            </div>
         );
     }
 

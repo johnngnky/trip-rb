@@ -22,22 +22,25 @@ export class Radiobuttons extends Tripetto.NodeProvider<JSX.Element, IRadiobutto
         }
 
         return (
-            <div title={this.Node.Props.Explanation}>
-                {this.Node.Props.Name && this.Node.Props.NameVisible && this.Node.Props.Name}
+            <div className="form-group">
+                {this.Node.Props.Name && this.Node.Props.NameVisible && <label>{this.Node.Props.Name}</label>}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 {this.Props.Radiobuttons.map((radiobutton: IRadiobutton) => {
                     return (
-                        <label key={radiobutton.Id}>
-                            <input
-                                type="radio"
-                                name={this.Node.Props.Id}
-                                defaultChecked={selected === radiobutton}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.Update(button, radiobutton.Id)}
-                            />
-                            {radiobutton.Name}
-                        </label>
+                        <div className="radio" key={radiobutton.Id}>
+                            <label>
+                                <input
+                                    type="radio"
+                                    name={this.Node.Props.Id}
+                                    defaultChecked={selected === radiobutton}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.Update(button, radiobutton.Id)}
+                                />
+                                {radiobutton.Name}
+                            </label>
+                        </div>
                     );
                 })}
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
             </div>
         );
     }

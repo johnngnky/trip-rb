@@ -8,18 +8,29 @@ export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
         const value = this.DataAssert<number>(instance, "number");
 
         return (
-            <label title={this.Node.Props.Explanation}>
-                {this.Node.Props.Name && this.Node.Props.NameVisible && this.Node.Props.Name}
+            <div className="form-group">
+                {this.Node.Props.Name &&
+                    this.Node.Props.NameVisible && (
+                        <label>
+                            {this.Node.Props.Name}
+                            {value.Slot.Required && <span className="text-danger">*</span>}
+                        </label>
+                    )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
-                <input
-                    type="number"
-                    required={value.Slot.Required}
-                    defaultValue={value.String}
-                    placeholder={this.Node.Props.Placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Data = e.target.value)}
-                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}
-                />
-            </label>
+                <div className="input-group">
+                    <span className="input-group-addon">#</span>
+                    <input
+                        type="number"
+                        required={value.Slot.Required}
+                        defaultValue={value.String}
+                        placeholder={this.Node.Props.Placeholder}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Data = e.target.value)}
+                        onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}
+                        className="form-control"
+                    />
+                </div>
+                {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
+            </div>
         );
     }
 
