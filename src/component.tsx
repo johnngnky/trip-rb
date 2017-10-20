@@ -16,6 +16,7 @@ interface IProps {
 export class Collector extends React.Component<IProps> {
     private readonly collector: CollectorWrapper;
     private mounted = false;
+    private resumeData: Tripetto.ISnapshot | undefined;
 
     constructor(props: IProps) {
         super();
@@ -42,15 +43,99 @@ export class Collector extends React.Component<IProps> {
     }
 
     public render(): JSX.Element | JSX.Element[] | string {
-        if (this.collector.IsEnded) {
-            return `Your form is completed! Now watch the collected data in your browser console.`;
-        } else if (this.collector.IsStopped) {
-            return `Your form is stopped! No data is available.`;
-        } else if (this.collector.IsPaused) {
-            return `Your form is paused! You can resume it, if you have the resume data.`;
+        let content = this.collector.render();
+
+        if (!content) {
+            if (this.collector.IsEnded) {
+                content = (
+                    <div>
+                        <h3>Form completed!</h3>
+                        <p className="text-info">
+                            Open the developer console to see the collected data.
+                        </p>
+                    </div>
+                );
+            } else if (this.collector.IsStopped) {
+                content = (
+                    <div>
+                        <h3>Form is stopped!</h3>
+                        <p className="text-info">
+                            Click <b>Start</b> to start a new session.
+                        </p>
+                    </div>
+                );
+            } else if (this.collector.IsPaused) {
+                content = (
+                    <div>
+                        <h3>Form paused!</h3>
+                        <p className="text-info">
+                            Click <b>Resume</b> to resume it. Open the developer console to see the resume data.
+                        </p>
+                    </div>
+                );
+            } else {
+                content = (
+                    <div>
+                        <h3>Form not running</h3>
+                        <p className="text-info">Refresh your browser.</p>
+                    </div>
+                );
+            }
         }
 
-        return this.collector.render() || `Your form is not running.`;
+        return (
+            <section className="container" style={{ paddingTop: "70px", paddingBottom: "70px" }}>
+                <nav className="navbar navbar-default navbar-fixed-top">
+                    <div className="container">
+                        <div className="navbar-header navbar-brand">
+                            {this.collector.Ontology ? this.collector.Ontology.Name : "Unnamed"}
+                        </div>
+                        <div className="btn-group navbar-btn navbar-right" role="group">
+                            <button
+                                type="button"
+                                className="btn btn-default"
+                                disabled={!this.collector.IsStopped && !this.collector.IsEnded}
+                                onClick={() => this.collector.Start()}
+                            >
+                                Start
+                            </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-default"
+                                    disabled={!this.collector.IsRunning}
+                                    onClick={() => console.dir((this.resumeData = this.collector.Pause()))}
+                                >
+                                    Pause
+                            </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-default"
+                                    disabled={!this.collector.IsPaused || !this.resumeData}
+                                    onClick={() => {
+                                        if (this.resumeData) {
+                                            this.collector.Resume(this.resumeData);
+                                        }
+                                    }}
+                                >
+                                    Resume
+                            </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-default"
+                                    disabled={!this.collector.IsRunning} onClick={() => this.collector.Stop()}
+                                >
+                                    Stop
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+
+                <section style={{ margin: "50px 0" }}>
+                    {content}
+                </section>
+
+            </section>
+        );
     }
 
     public componentDidMount(): void {
