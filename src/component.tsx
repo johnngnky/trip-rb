@@ -130,7 +130,7 @@ export class Collector extends React.Component<IProps> {
                     </div>
                 </nav>
 
-                <section style={{ margin: "50px 0" }}>
+                <section>
                     {content}
                 </section>
 
