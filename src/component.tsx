@@ -50,9 +50,7 @@ export class Collector extends React.Component<IProps> {
                 content = (
                     <div>
                         <h3>Form completed!</h3>
-                        <p className="text-info">
-                            Open the developer console to see the collected data.
-                        </p>
+                        <p className="text-info">Open the developer console to see the collected data.</p>
                     </div>
                 );
             } else if (this.collector.IsStopped) {
@@ -99,41 +97,39 @@ export class Collector extends React.Component<IProps> {
                             >
                                 Start
                             </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-default"
-                                    disabled={!this.collector.IsRunning}
-                                    onClick={() => console.dir((this.resumeData = this.collector.Pause()))}
-                                >
-                                    Pause
+                            <button
+                                type="button"
+                                className="btn btn-default"
+                                disabled={!this.collector.IsRunning}
+                                onClick={() => console.dir((this.resumeData = this.collector.Pause()))}
+                            >
+                                Pause
                             </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-default"
-                                    disabled={!this.collector.IsPaused || !this.resumeData}
-                                    onClick={() => {
-                                        if (this.resumeData) {
-                                            this.collector.Resume(this.resumeData);
-                                        }
-                                    }}
-                                >
-                                    Resume
+                            <button
+                                type="button"
+                                className="btn btn-default"
+                                disabled={!this.collector.IsPaused || !this.resumeData}
+                                onClick={() => {
+                                    if (this.resumeData) {
+                                        this.collector.Resume(this.resumeData);
+                                    }
+                                }}
+                            >
+                                Resume
                             </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-default"
-                                    disabled={!this.collector.IsRunning} onClick={() => this.collector.Stop()}
-                                >
-                                    Stop
+                            <button
+                                type="button"
+                                className="btn btn-default"
+                                disabled={!this.collector.IsRunning}
+                                onClick={() => this.collector.Stop()}
+                            >
+                                Stop
                             </button>
                         </div>
                     </div>
                 </nav>
 
-                <section>
-                    {content}
-                </section>
-
+                <section>{content}</section>
             </section>
         );
     }

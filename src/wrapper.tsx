@@ -75,7 +75,6 @@ export class CollectorWrapper extends Tripetto.Collector<JSX.Element> {
                                 {this.ProgressPercentage}%
                             </div>
                         </div>
-
                     </div>
                 </nav>
             </section>
