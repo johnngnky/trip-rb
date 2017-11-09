@@ -19,7 +19,7 @@ export class Collector extends React.Component<IProps> {
     private resumeData: Tripetto.ISnapshot | undefined;
 
     constructor(props: IProps) {
-        super();
+        super(props);
 
         this.collector = new CollectorWrapper(props.definition, props.verbose || false, this.update.bind(this), this.end.bind(this));
 
