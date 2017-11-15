@@ -3,7 +3,7 @@ import * as Tripetto from "@tripetto/forms-collector";
 import { ITextarea } from "tripetto-forms-textarea";
 
 @Tripetto.node("tripetto-forms-textarea")
-export class Password extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
+export class Textarea extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const value = this.DataAssert<string>(instance, "value");
 
