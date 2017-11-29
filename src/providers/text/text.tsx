@@ -6,7 +6,8 @@ import "./condition";
 @Tripetto.node("tripetto-forms-text")
 export class Text extends Tripetto.NodeProvider<JSX.Element, IText> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const value = this.DataAssert<string>(instance, "value");
+        const slot = this.SlotAssert("value");
+        const value = this.DataAssert<string>(instance, slot);
 
         return (
             <div className="form-group">
@@ -14,13 +15,13 @@ export class Text extends Tripetto.NodeProvider<JSX.Element, IText> {
                     this.Node.Props.NameVisible && (
                         <label>
                             {this.Node.Props.Name}
-                            {value.Slot.Required && <span className="text-danger">*</span>}
+                            {slot.Required && <span className="text-danger">*</span>}
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <input
                     type="text"
-                    required={value.Slot.Required}
+                    required={slot.Required}
                     defaultValue={value.Value}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Value = e.target.value)}
@@ -33,8 +34,9 @@ export class Text extends Tripetto.NodeProvider<JSX.Element, IText> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const value = this.DataAssert<string>(instance, "value");
+        const slot = this.SlotAssert("value");
+        const value = this.DataAssert<string>(instance, slot);
 
-        return !value.Slot.Required || value.Value !== "";
+        return !slot.Required || value.Value !== "";
     }
 }

@@ -38,7 +38,7 @@ export class Collector extends React.Component<IProps> {
     private end(instance: Tripetto.Instance, type: "ended" | "stopped" | "paused"): void {
         if (type === "ended") {
             // Output the collected data to the console
-            console.dir(instance.Data.Values);
+            console.dir(instance.Store.Values);
         }
     }
 

@@ -8,7 +8,8 @@ const IS_EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0
 @Tripetto.node("tripetto-forms-email")
 export class Email extends Tripetto.NodeProvider<JSX.Element, IEmail> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const email = this.DataAssert<string>(instance, "email");
+        const slot = this.SlotAssert("email");
+        const email = this.DataAssert<string>(instance, slot);
 
         return (
             <div className="form-group">
@@ -16,7 +17,7 @@ export class Email extends Tripetto.NodeProvider<JSX.Element, IEmail> {
                     this.Node.Props.NameVisible && (
                         <label>
                             {this.Node.Props.Name}
-                            {email.Slot.Required && <span className="text-danger">*</span>}
+                            {slot.Required && <span className="text-danger">*</span>}
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
@@ -24,7 +25,7 @@ export class Email extends Tripetto.NodeProvider<JSX.Element, IEmail> {
                     <span className="input-group-addon">@</span>
                     <input
                         type="email"
-                        required={email.Slot.Required}
+                        required={slot.Required}
                         defaultValue={email.Value}
                         placeholder={this.Node.Props.Placeholder}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => (email.Value = e.target.value)}
@@ -38,9 +39,10 @@ export class Email extends Tripetto.NodeProvider<JSX.Element, IEmail> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const email = this.DataAssert<string>(instance, "email");
+        const slot = this.SlotAssert("email");
+        const email = this.DataAssert<string>(instance, slot);
 
-        if (email.Slot.Required && email.Value === "") {
+        if (slot.Required && email.Value === "") {
             return false;
         }
 

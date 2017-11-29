@@ -28,14 +28,14 @@
   "dependencies": {},
   "devDependencies": {
     "@marblecore/tslint-configuration": "^5.7.0",
-    "@tripetto/forms-collector": "^0.3.8",
+    "@tripetto/forms-collector": "^0.4.0",
     "@tripetto/forms-editor": "*",
-    "@types/react": "^16.0.22",
+    "@types/react": "^16.0.25",
     "@types/react-dom": "^16.0.3",
     "@types/superagent": "^3.5.6",
     "prettier": "^1.8.2",
-    "react": "^16.1.1",
-    "react-dom": "^16.1.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "superagent": "^3.8.1",
     "tripetto-forms-checkbox": "^1.0.5",
     "tripetto-forms-checkboxes": "^1.0.5",
@@ -49,9 +49,9 @@
     "tripetto-forms-url": "^1.0.5",
     "ts-loader": "^3.1.1",
     "tslint": "^5.8.0",
-    "typescript": "^2.6.1",
+    "typescript": "^2.6.2",
     "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.5"
   },
   "tripetto": {
     "providers": [

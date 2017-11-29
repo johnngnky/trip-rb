@@ -8,7 +8,8 @@ const IS_URL = /^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\
 @Tripetto.node("tripetto-forms-url")
 export class URL extends Tripetto.NodeProvider<JSX.Element, IURL> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const url = this.DataAssert<string>(instance, "url");
+        const slot = this.SlotAssert("url");
+        const url = this.DataAssert<string>(instance, slot);
 
         return (
             <div className="form-group">
@@ -16,13 +17,13 @@ export class URL extends Tripetto.NodeProvider<JSX.Element, IURL> {
                     this.Node.Props.NameVisible && (
                         <label>
                             {this.Node.Props.Name}
-                            {url.Slot.Required && <span className="text-danger">*</span>}
+                            {slot.Required && <span className="text-danger">*</span>}
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <input
                     type="url"
-                    required={url.Slot.Required}
+                    required={slot.Required}
                     defaultValue={url.Value}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (url.Value = e.target.value)}
@@ -35,9 +36,10 @@ export class URL extends Tripetto.NodeProvider<JSX.Element, IURL> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const url = this.DataAssert<string>(instance, "url");
+        const slot = this.SlotAssert("url");
+        const url = this.DataAssert<string>(instance, slot);
 
-        if (url.Slot.Required && url.Value === "") {
+        if (slot.Required && url.Value === "") {
             return false;
         }
 

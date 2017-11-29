@@ -5,7 +5,8 @@ import { ITextarea } from "tripetto-forms-textarea";
 @Tripetto.node("tripetto-forms-textarea")
 export class Textarea extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const value = this.DataAssert<string>(instance, "value");
+        const slot = this.SlotAssert("value");
+        const value = this.DataAssert<string>(instance, slot);
 
         return (
             <div className="form-group">
@@ -13,13 +14,13 @@ export class Textarea extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
                     this.Node.Props.NameVisible && (
                         <label>
                             {this.Node.Props.Name}
-                            {value.Slot.Required && <span className="text-danger">*</span>}
+                            {slot.Required && <span className="text-danger">*</span>}
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
                 <textarea
                     rows={3}
-                    required={value.Slot.Required}
+                    required={slot.Required}
                     defaultValue={value.Value}
                     placeholder={this.Node.Props.Placeholder}
                     onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.Value = e.target.value)}
@@ -32,8 +33,9 @@ export class Textarea extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const value = this.DataAssert<string>(instance, "value");
+        const slot = this.SlotAssert("value");
+        const value = this.DataAssert<string>(instance, slot);
 
-        return !value.Slot.Required || value.Value !== "";
+        return !slot.Required || value.Value !== "";
     }
 }

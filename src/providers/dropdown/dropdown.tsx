@@ -5,14 +5,23 @@ import "./condition";
 
 @Tripetto.node("tripetto-forms-dropdown")
 export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
-    private Update(data: Tripetto.Data, id: string | undefined): void {
-        const value = Tripetto.F.FindFirst(this.Props.Options, (option: IDropdownOption) => option.Id === id);
+    private Update(data: Tripetto.Data<string>, id: string | undefined): void {
+        let value = Tripetto.F.FindFirst(this.Props.Options, (option: IDropdownOption) => option.Id === id);
 
-        data.Set(value ? value.Value || value.Name : undefined, id);
+        if (!value && !this.Node.Props.Placeholder) {
+            value = Tripetto.F.ArrayItem(this.Props.Options, 0);
+        }
+
+        if (value) {
+            data.Set(value.Value || value.Name, value.Id);
+        } else {
+            data.Set(undefined, "");
+        }
     }
 
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const dropdown = this.DataAssert<string>(instance, "option");
+        const slot = this.SlotAssert("option");
+        const dropdown = this.DataAssert<string>(instance, slot);
 
         this.Update(dropdown, dropdown.Reference);
 
@@ -22,7 +31,7 @@ export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
                     this.Node.Props.NameVisible && (
                         <label>
                             {this.Node.Props.Name}
-                            {dropdown.Slot.Required && <span className="text-danger">*</span>}
+                            {slot.Required && <span className="text-danger">*</span>}
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
@@ -44,8 +53,9 @@ export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const dropdown = this.DataAssert<string>(instance, "option");
+        const slot = this.SlotAssert("option");
+        const dropdown = this.DataAssert<string>(instance, slot);
 
-        return !dropdown.Slot.Required || dropdown.Reference !== "";
+        return !slot.Required || dropdown.Reference !== "";
     }
 }

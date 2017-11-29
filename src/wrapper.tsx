@@ -27,12 +27,12 @@ export class CollectorWrapper extends Tripetto.Collector<JSX.Element> {
                 {this.Nodes.map((node: Tripetto.IObservableNode<JSX.Element>) => {
                     /** Render the provider if it is available. */
                     if (node.Provider) {
-                        return <div key={node.Id}>{node.Provider.OnRender(node.Instance, node.Observer)}</div>;
+                        return <div key={node.Key}>{node.Provider.OnRender(node.Instance, node.Observer)}</div>;
                     }
 
                     /** If there is no provider the node should be considered as static text. */
                     return (
-                        <div key={node.Id}>
+                        <div key={node.Key}>
                             {node.Props.NameVisible && node.Props.Name && <h3>{node.Props.Name}</h3>}
                             {node.Props.Description && <p className="text-info">{node.Props.Description}</p>}
                         </div>

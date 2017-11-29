@@ -5,7 +5,8 @@ import { ICheckbox } from "tripetto-forms-checkbox";
 @Tripetto.node("tripetto-forms-checkbox")
 export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
-        const checkbox = this.DataAssert<boolean>(instance, "checked");
+        const slot = this.SlotAssert("checked");
+        const checkbox = this.DataAssert<boolean>(instance, slot);
 
         return (
             <div className="form-group checkbox">
@@ -16,7 +17,7 @@ export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checkbox.Value = e.target.checked)}
                     />
                     {this.Node.Props.Name}
-                    {checkbox.Slot.Required && <span className="text-danger">*</span>}
+                    {slot.Required && <span className="text-danger">*</span>}
                 </label>
                 {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}
             </div>
@@ -24,8 +25,9 @@ export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const checkbox = this.DataAssert<boolean>(instance, "checked");
+        const slot = this.SlotAssert("checked");
+        const checkbox = this.DataAssert<boolean>(instance, slot);
 
-        return !checkbox.Slot.Required || checkbox.Value;
+        return !slot.Required || checkbox.Value;
     }
 }

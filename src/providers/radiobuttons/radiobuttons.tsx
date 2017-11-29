@@ -4,7 +4,7 @@ import { IRadiobutton, IRadiobuttons } from "tripetto-forms-radiobuttons";
 
 @Tripetto.node("tripetto-forms-radiobuttons")
 export class Radiobuttons extends Tripetto.NodeProvider<JSX.Element, IRadiobuttons> {
-    private Update(data: Tripetto.Data, id: string | undefined): void {
+    private Update(data: Tripetto.Data<string>, id: string | undefined): void {
         const value = Tripetto.F.FindFirst(this.Props.Radiobuttons, (radiobutton: IRadiobutton) => radiobutton.Id === id);
 
         data.Set(value ? value.Value || value.Name : value, id);

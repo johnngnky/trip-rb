@@ -5,6 +5,7 @@ import { INumber } from "tripetto-forms-number";
 @Tripetto.node("tripetto-forms-number")
 export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
+        const slot = this.SlotAssert("number");
         const value = this.DataAssert<number>(instance, "number");
 
         return (
@@ -13,7 +14,7 @@ export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
                     this.Node.Props.NameVisible && (
                         <label>
                             {this.Node.Props.Name}
-                            {value.Slot.Required && <span className="text-danger">*</span>}
+                            {slot.Required && <span className="text-danger">*</span>}
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
@@ -21,7 +22,7 @@ export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
                     <span className="input-group-addon">#</span>
                     <input
                         type="number"
-                        required={value.Slot.Required}
+                        required={slot.Required}
                         defaultValue={value.String}
                         placeholder={this.Node.Props.Placeholder}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Data = e.target.value)}
@@ -35,8 +36,9 @@ export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
     }
 
     public OnValidate(instance: Tripetto.Instance): boolean {
-        const value = this.DataAssert<number>(instance, "number");
+        const slot = this.SlotAssert("number");
+        const value = this.DataAssert<number>(instance, slot);
 
-        return !value.Slot.Required || value.String !== "";
+        return !slot.Required || value.String !== "";
     }
 }
