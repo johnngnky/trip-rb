@@ -1,4 +1,4 @@
-import * as Tripetto from "@tripetto/forms-collector";
+import * as Tripetto from "tripetto-collector";
 import * as React from "react";
 
 export class CollectorWrapper extends Tripetto.Collector<JSX.Element> {
@@ -25,12 +25,12 @@ export class CollectorWrapper extends Tripetto.Collector<JSX.Element> {
         return (
             <section>
                 {this.Nodes.map((node: Tripetto.IObservableNode<JSX.Element>) => {
-                    /** Render the provider if it is available. */
-                    if (node.Provider) {
-                        return <div key={node.Key}>{node.Provider.OnRender(node.Instance, node.Observer)}</div>;
+                    /** Render the block if it is available. */
+                    if (node.Block) {
+                        return <div key={node.Key}>{node.Block.OnRender(node.Instance, node.Observer)}</div>;
                     }
 
-                    /** If there is no provider the node should be considered as static text. */
+                    /** If there is no block the node should be considered as static text. */
                     return (
                         <div key={node.Key}>
                             {node.Props.NameVisible && node.Props.Name && <h3>{node.Props.Name}</h3>}

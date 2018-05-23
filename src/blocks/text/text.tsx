@@ -1,9 +1,10 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { ITextarea } from "tripetto-forms-textarea";
+import * as Tripetto from "tripetto-collector";
+import { IText } from "tripetto-block-text";
+import "./condition";
 
-@Tripetto.node("tripetto-forms-textarea")
-export class Textarea extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
+@Tripetto.node("tripetto-block-text")
+export class Text extends Tripetto.NodeBlock<JSX.Element, IText> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const slot = this.SlotAssert("value");
         const value = this.DataAssert<string>(instance, slot);
@@ -18,13 +19,13 @@ export class Textarea extends Tripetto.NodeProvider<JSX.Element, ITextarea> {
                         </label>
                     )}
                 {this.Node.Props.Description && <p>{this.Node.Props.Description}</p>}
-                <textarea
-                    rows={3}
+                <input
+                    type="text"
                     required={slot.Required}
                     defaultValue={value.Value}
                     placeholder={this.Node.Props.Placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.Value = e.target.value)}
-                    onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => ((e.target as HTMLTextAreaElement).value = value.String)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.Value = e.target.value)}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.String)}
                     className="form-control"
                 />
                 {this.Node.Props.Explanation && <span className="help-block">{this.Node.Props.Explanation}</span>}

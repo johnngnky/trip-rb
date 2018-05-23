@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { INumber } from "tripetto-forms-number";
+import * as Tripetto from "tripetto-collector";
+import { INumber } from "tripetto-block-number";
 
-@Tripetto.node("tripetto-forms-number")
-export class Number extends Tripetto.NodeProvider<JSX.Element, INumber> {
+@Tripetto.node("tripetto-block-number")
+export class Number extends Tripetto.NodeBlock<JSX.Element, INumber> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const slot = this.SlotAssert("number");
         const value = this.DataAssert<number>(instance, "number");

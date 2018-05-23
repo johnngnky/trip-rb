@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { IRadiobutton, IRadiobuttons } from "tripetto-forms-radiobuttons";
+import * as Tripetto from "tripetto-collector";
+import { IRadiobutton, IRadiobuttons } from "tripetto-block-radiobuttons";
 
-@Tripetto.node("tripetto-forms-radiobuttons")
-export class Radiobuttons extends Tripetto.NodeProvider<JSX.Element, IRadiobuttons> {
+@Tripetto.node("tripetto-block-radiobuttons")
+export class Radiobuttons extends Tripetto.NodeBlock<JSX.Element, IRadiobuttons> {
     private Update(data: Tripetto.Data<string>, id: string | undefined): void {
         const value = Tripetto.F.FindFirst(this.Props.Radiobuttons, (radiobutton: IRadiobutton) => radiobutton.Id === id);
 

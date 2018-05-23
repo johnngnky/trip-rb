@@ -1,10 +1,10 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { IDropdown, IDropdownOption } from "tripetto-forms-dropdown";
+import * as Tripetto from "tripetto-collector";
+import { IDropdown, IDropdownOption } from "tripetto-block-dropdown";
 import "./condition";
 
-@Tripetto.node("tripetto-forms-dropdown")
-export class Dropdown extends Tripetto.NodeProvider<JSX.Element, IDropdown> {
+@Tripetto.node("tripetto-block-dropdown")
+export class Dropdown extends Tripetto.NodeBlock<JSX.Element, IDropdown> {
     private Update(data: Tripetto.Data<string>, id: string | undefined): void {
         let value = Tripetto.F.FindFirst(this.Props.Options, (option: IDropdownOption) => option.Id === id);
 

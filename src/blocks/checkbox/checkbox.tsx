@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { ICheckbox } from "tripetto-forms-checkbox";
+import * as Tripetto from "tripetto-collector";
+import { ICheckbox } from "tripetto-block-checkbox";
 
-@Tripetto.node("tripetto-forms-checkbox")
-export class Checkbox extends Tripetto.NodeProvider<JSX.Element, ICheckbox> {
+@Tripetto.node("tripetto-block-checkbox")
+export class Checkbox extends Tripetto.NodeBlock<JSX.Element, ICheckbox> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const slot = this.SlotAssert("checked");
         const checkbox = this.DataAssert<boolean>(instance, slot);

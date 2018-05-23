@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { IPassword } from "tripetto-forms-password";
+import * as Tripetto from "tripetto-collector";
+import { IPassword } from "tripetto-block-password";
 
-@Tripetto.node("tripetto-forms-password")
-export class Password extends Tripetto.NodeProvider<JSX.Element, IPassword> {
+@Tripetto.node("tripetto-block-password")
+export class Password extends Tripetto.NodeBlock<JSX.Element, IPassword> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const slot = this.SlotAssert("password");
         const password = this.DataAssert<string>(instance, "password");

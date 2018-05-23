@@ -1,9 +1,9 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { ICheckbox, ICheckboxes } from "tripetto-forms-checkboxes";
+import * as Tripetto from "tripetto-collector";
+import { ICheckbox, ICheckboxes } from "tripetto-block-checkboxes";
 
-@Tripetto.node("tripetto-forms-checkboxes")
-export class Checkboxes extends Tripetto.NodeProvider<JSX.Element, ICheckboxes> {
+@Tripetto.node("tripetto-block-checkboxes")
+export class Checkboxes extends Tripetto.NodeBlock<JSX.Element, ICheckboxes> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         return (
             <div className="form-group">

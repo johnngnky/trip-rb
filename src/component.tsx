@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
+import * as Tripetto from "tripetto-collector";
 import { CollectorWrapper } from "./wrapper";
 
 interface IProps {

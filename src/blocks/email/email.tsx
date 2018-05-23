@@ -1,12 +1,12 @@
 import * as React from "react";
-import * as Tripetto from "@tripetto/forms-collector";
-import { IEmail } from "tripetto-forms-email";
+import * as Tripetto from "tripetto-collector";
+import { IEmail } from "tripetto-block-email";
 
 /* tslint:disable-next-line:max-line-length */
 const IS_EMAIL = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-@Tripetto.node("tripetto-forms-email")
-export class Email extends Tripetto.NodeProvider<JSX.Element, IEmail> {
+@Tripetto.node("tripetto-block-email")
+export class Email extends Tripetto.NodeBlock<JSX.Element, IEmail> {
     public OnRender(instance: Tripetto.Instance, action: Tripetto.Await): JSX.Element {
         const slot = this.SlotAssert("email");
         const email = this.DataAssert<string>(instance, slot);

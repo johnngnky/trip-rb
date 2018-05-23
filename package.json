@@ -1,11 +1,11 @@
 {
-  "name": "tripetto-forms-examples-react",
-  "title": "Tripetto Forms Collector example (React)",
+  "name": "tripetto-example-react",
+  "title": "Tripetto collector example (React)",
   "version": "1.0.0",
-  "description": "Demo for implementing the Tripetto Forms collector using React.",
+  "description": "Demo for implementing the Tripetto collector using React.",
   "license": "MIT",
   "private": true,
-  "homepage": "https://gitlab.com/tripetto/forms/examples/react",
+  "homepage": "https://gitlab.com/tripetto/examples/react",
   "author": {
     "name": "Mark van den Brink",
     "email": "mark@vandenbr.ink",
@@ -13,13 +13,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/tripetto/forms/examples/react.git"
+    "url": "https://gitlab.com/tripetto/examples/react.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/tripetto/forms/examples/react/issues"
+    "url": "https://gitlab.com/tripetto/examples/react/issues"
   },
   "scripts": {
-    "start": "tripetto ./static/form.json",
+    "start": "tripetto ./static/demo.json",
     "format": "prettier --tab-width 4 --print-width 140 --write \"src/**/*.ts\" \"src/**/*.tsx\" \"webpack.config.js\"",
     "lint": "tslint -c ./tslint.json ./src/**/*.ts",
     "test": "webpack-dev-server --mode development",
@@ -28,44 +28,44 @@
   "dependencies": {},
   "devDependencies": {
     "@marblecore/tslint-configuration": "^5.9.0",
-    "@tripetto/forms-collector": "^0.4.22",
-    "@tripetto/forms-editor": "^0.3.2",
-    "@types/react": "^16.3.11",
+    "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "@types/superagent": "^3.5.8",
     "prettier": "^1.12.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "superagent": "^3.8.2",
-    "tripetto-forms-checkbox": "^1.0.17",
-    "tripetto-forms-checkboxes": "^1.0.12",
-    "tripetto-forms-dropdown": "^1.0.12",
-    "tripetto-forms-email": "^1.0.12",
-    "tripetto-forms-number": "^1.0.11",
-    "tripetto-forms-password": "^1.0.11",
-    "tripetto-forms-radiobuttons": "^1.0.11",
-    "tripetto-forms-text": "^1.0.11",
-    "tripetto-forms-textarea": "^1.0.10",
-    "tripetto-forms-url": "^1.0.10",
-    "ts-loader": "^4.2.0",
-    "tslint": "^5.9.1",
-    "typescript": "^2.8.1",
-    "webpack": "^4.6.0",
-    "webpack-cli": "^2.0.14",
-    "webpack-dev-server": "^3.1.3"
+    "superagent": "^3.8.3",
+    "tripetto": "^0.4.5",
+    "tripetto-block-checkbox": "^1.0.21",
+    "tripetto-block-checkboxes": "^1.0.14",
+    "tripetto-block-dropdown": "^1.0.13",
+    "tripetto-block-email": "^1.0.14",
+    "tripetto-block-number": "^1.0.12",
+    "tripetto-block-password": "^1.0.12",
+    "tripetto-block-radiobuttons": "^1.0.12",
+    "tripetto-block-text": "^1.0.12",
+    "tripetto-block-textarea": "^1.0.11",
+    "tripetto-block-url": "^1.0.11",
+    "tripetto-collector": "^0.4.24",
+    "ts-loader": "^4.3.0",
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.3",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
   },
   "tripetto": {
-    "providers": [
-      "tripetto-forms-checkbox",
-      "tripetto-forms-checkboxes",
-      "tripetto-forms-dropdown",
-      "tripetto-forms-email",
-      "tripetto-forms-number",
-      "tripetto-forms-password",
-      "tripetto-forms-radiobuttons",
-      "tripetto-forms-text",
-      "tripetto-forms-textarea",
-      "tripetto-forms-url"
+    "blocks": [
+      "tripetto-block-checkbox",
+      "tripetto-block-checkboxes",
+      "tripetto-block-dropdown",
+      "tripetto-block-email",
+      "tripetto-block-number",
+      "tripetto-block-password",
+      "tripetto-block-radiobuttons",
+      "tripetto-block-text",
+      "tripetto-block-textarea",
+      "tripetto-block-url"
     ],
     "noFurtherLoading": true
   }
