@@ -4,7 +4,7 @@ import { CollectorWrapper } from "./wrapper";
 
 interface IProps {
     /** Form definition. */
-    definition: Tripetto.IMap | string;
+    definition: Tripetto.IDefinition | string;
 
     /** Snapshot data if your component should resume an instance. */
     snapshot?: Tripetto.ISnapshot;
