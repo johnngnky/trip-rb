@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as Tripetto from "tripetto-collector";
 import { ICheckbox } from "tripetto-block-checkbox";
+import "./conditions";
 
 @Tripetto.node("tripetto-block-checkbox")
 export class Checkbox extends Tripetto.NodeBlock<JSX.Element, ICheckbox> {
