@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Editor } from "tripetto";
 import { Collector } from "../collector";
-import { Blocks } from "../collector/helpers/blocks";
+import { Blocks } from "../collector/blocks/blocks";
 import { settingsModal } from "./settings";
 import "./index.scss";
 

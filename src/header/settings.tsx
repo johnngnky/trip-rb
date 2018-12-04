@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Collector } from "../collector";
-import { Blocks } from "../collector/helpers/blocks";
+import { Blocks } from "../collector/blocks/blocks";
 
 export const settingsModal = (collector: Collector, blocks: Blocks) => (
     <div className="modal" id="settingsModal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
