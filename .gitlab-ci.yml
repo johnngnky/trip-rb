@@ -1,10 +1,10 @@
-image: node:alpine
+image: node
 
 before_script:
-    - node --version
-    - npm --version
-    - npm install
+  - node --version
+  - npm --version
+  - npm ci || npm install
 
 test:
-    script:
-        - npm run make --silent
+  script:
+    - npm run make
