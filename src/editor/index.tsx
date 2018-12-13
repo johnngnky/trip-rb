@@ -13,12 +13,17 @@ import "tripetto-block-url";
 
 export const render = (editorElement: HTMLElement | null, definition?: IDefinition) =>
     Editor.open(definition, {
+        controls: "left",
         element: editorElement,
+        disableLogo: false,
         disableSaveButton: true,
         disableRestoreButton: true,
         disableClearButton: false,
+        disableEditButton: true,
         disableCloseButton: true,
+        disableTutorialButton: false,
         disableOpenCloseAnimation: true,
+        disableZoombar: false,
         supportURL: false,
         showTutorial: false,
         zoom: "fit-horizontal"

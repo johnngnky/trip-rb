@@ -4,7 +4,7 @@ import { Blocks } from "../collector/helpers/blocks";
 
 export const settingsModal = (collector: Collector, blocks: Blocks) => (
     <div className="modal" id="settingsModal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
                 <div className="modal-header px-4">
                     <h5 className="modal-title" id="settingsModalTitle">
