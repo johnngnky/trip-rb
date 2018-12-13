@@ -101,28 +101,30 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                                 </label>
                             </div>
                         </div>
-                        <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                                <input
-                                    id="pages"
-                                    type="checkbox"
-                                    defaultChecked={collector.settings.pages}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        collector.changeSettings({
-                                            pages: e.target.checked
-                                        })
-                                    }
-                                    className="custom-control-input"
-                                    aria-describedby="pages_explanation"
-                                />
-                                <label htmlFor="pages" className="custom-control-label">
-                                    Pages
-                                    <small className="form-text text-secondary" id="pages_explanation">
-                                        Shows pages-index in paginated mode.
-                                    </small>
-                                </label>
+                        {blocks.mode === "paginated" && (
+                            <div className="form-group">
+                                <div className="custom-control custom-checkbox">
+                                    <input
+                                        id="pages"
+                                        type="checkbox"
+                                        defaultChecked={collector.settings.pages}
+                                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                            collector.changeSettings({
+                                                pages: e.target.checked
+                                            })
+                                        }
+                                        className="custom-control-input"
+                                        aria-describedby="pages_explanation"
+                                    />
+                                    <label htmlFor="pages" className="custom-control-label">
+                                        Page navigation
+                                        <small className="form-text text-secondary" id="pages_explanation">
+                                            Shows pages-index in paginated mode.
+                                        </small>
+                                    </label>
+                                </div>
                             </div>
-                        </div>
+                        )}
                         <div className="form-group">
                             <div className="custom-control custom-checkbox">
                                 <input
