@@ -43,43 +43,47 @@ export class Header extends React.PureComponent<{
                             </a>
                         </div>
                         <div className="col-6 d-flex justify-content-end align-items-center">
-                            <div className="btn-group mr-1 mr-md-4" role="group" aria-label="Controls">
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    title="Start form"
-                                    disabled={!this.blocks.isStopped && !this.blocks.isFinished}
-                                    onClick={() => this.blocks.start()}
-                                >
-                                    <i className="fas fa-play fa-fw" />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    title="Pause form"
-                                    disabled={!this.blocks.isRunning}
-                                    onClick={() => this.blocks.pause()}
-                                >
-                                    <i className="fas fa-pause fa-fw" />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    title="Stop form"
-                                    disabled={!this.blocks.isRunning}
-                                    onClick={() => this.blocks.stop()}
-                                >
-                                    <i className="fas fa-stop fa-fw" />
-                                </button>
-                            </div>
-                            <button
-                                type="button"
-                                className="btn btn-primary mr-1 mr-md-4"
-                                data-toggle="modal"
-                                data-target="#settingsModal"
-                            >
-                                Settings
-                            </button>
+                            {!this.blocks.preview && (
+                                <>
+                                    <div className="btn-group mr-1 mr-md-4" role="group" aria-label="Controls">
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            title="Start form"
+                                            disabled={!this.blocks.isStopped && !this.blocks.isFinished}
+                                            onClick={() => this.blocks.start()}
+                                        >
+                                            <i className="fas fa-play fa-fw" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            title="Pause form"
+                                            disabled={!this.blocks.isRunning}
+                                            onClick={() => this.blocks.pause()}
+                                        >
+                                            <i className="fas fa-pause fa-fw" />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            title="Stop form"
+                                            disabled={!this.blocks.isRunning}
+                                            onClick={() => this.blocks.stop()}
+                                        >
+                                            <i className="fas fa-stop fa-fw" />
+                                        </button>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary mr-1 mr-md-4"
+                                        data-toggle="modal"
+                                        data-target="#settingsModal"
+                                    >
+                                        Settings
+                                    </button>
+                                </>
+                            )}
                             <div className="btn-group btn-group-toggle" data-toggle="buttons">
                                 <button
                                     type="button"
