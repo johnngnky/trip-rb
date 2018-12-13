@@ -1,11 +1,11 @@
 import * as Tripetto from "tripetto-collector";
 import * as React from "react";
-import { ICollectorSettings } from "./interfaces/settings";
-import { IBlockRenderer } from "./interfaces/renderer";
-import { markdownToJSX } from "./markdown";
-import { buttons } from "./buttons";
-import { progressbar } from "./progressbar";
-import { pages } from "./pages";
+import { ICollectorSettings } from "../helpers/interfaces/settings";
+import { IBlockRenderer } from "../helpers/interfaces/renderer";
+import { markdownToJSX } from "../helpers/markdown";
+import { buttons } from "../helpers/buttons";
+import { progressbar } from "../helpers/progressbar";
+import { pages } from "../helpers/pages";
 
 export class Blocks extends Tripetto.Collector<IBlockRenderer> {
     render(settings: ICollectorSettings): JSX.Element | undefined {

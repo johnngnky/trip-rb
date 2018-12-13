@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Tripetto from "tripetto-collector";
-import { Blocks } from "./helpers/blocks";
+import { Blocks } from "./blocks/blocks";
 import { ICollectorProps } from "./helpers/interfaces/props";
 import { ICollectorSettings } from "./helpers/interfaces/settings";
 import { buttons } from "./helpers/buttons";
