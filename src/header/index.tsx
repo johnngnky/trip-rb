@@ -5,9 +5,6 @@ import { Blocks } from "../collector/blocks/blocks";
 import { settingsModal } from "./settings";
 import "./index.scss";
 
-const URL_SOURCE = "https://gitlab.com/tripetto/examples/react";
-const URL_README = "https://gitlab.com/tripetto/examples/react/blob/master/README.md";
-
 export class Header extends React.PureComponent<{
     collector: React.RefObject<Collector>;
     editor: Editor;
@@ -33,11 +30,21 @@ export class Header extends React.PureComponent<{
                             <h1 className="mr-1 mr-md-3 text-truncate">
                                 React + Bootstrap 4.1
                             </h1>
-                            <a href={URL_SOURCE} target="_blank" role="button" className="btn btn-sm btn-link">
+                            <a
+                                href="https://gitlab.com/tripetto/examples/react"
+                                target="_blank"
+                                role="button"
+                                className="btn btn-sm btn-link"
+                            >
                                 <i className="fas fa-code pr-2" />
                                 Get source
                             </a>
-                            <a href={URL_README} target="_blank" role="button" className="btn btn-sm btn-link">
+                            <a
+                                href="https://gitlab.com/tripetto/examples/react/blob/master/README.md"
+                                target="_blank"
+                                role="button"
+                                className="btn btn-sm btn-link"
+                            >
                                 <i className="fas fa-book-reader pr-2" />
                                 View readme
                             </a>
