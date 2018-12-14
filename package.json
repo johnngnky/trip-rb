@@ -60,7 +60,7 @@
     "tripetto-block-text": "^1.0.13-10",
     "tripetto-block-textarea": "^1.0.12-7",
     "tripetto-block-url": "^1.0.12-7",
-    "tripetto-collector": "^0.4.26-28",
+    "tripetto-collector": "^0.4.26-31",
     "ts-loader": "^5.3.1",
     "tslint": "^5.11.0",
     "typescript": "^3.2.2",

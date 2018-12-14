@@ -28,13 +28,19 @@
   }
 
   .form-group {
-    margin-top: 30px;
+    > label:first-child {
+      font-weight: bold;
+    }
 
     label {
       span.text-danger {
         padding-left: 4px;
       }
     }
+  }
+
+  .separate {
+    margin-top: 64px;
   }
 
   .buttons {

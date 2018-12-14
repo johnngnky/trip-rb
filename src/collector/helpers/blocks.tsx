@@ -14,27 +14,20 @@ export class Blocks extends Tripetto.Collector<IBlockRenderer> {
         return (
             storyline && (
                 <>
-                    {storyline.map((moment: Tripetto.Moment<IBlockRenderer>) =>
-                        moment.nodes.map((node: Tripetto.IObservableNode<IBlockRenderer>) =>
+                    {storyline.map((moment: Tripetto.Moment<IBlockRenderer>, momentIndex: number) =>
+                        moment.nodes.map((node: Tripetto.IObservableNode<IBlockRenderer>, nodeIndex: number) =>
                             node.block ? (
                                 <div key={node.key}>
                                     {node.block.render({
                                         name: (required?: boolean, labelFor?: string) =>
                                             Tripetto.isString(node.props.name) &&
-                                            Tripetto.castToBoolean(node.props.nameVisible, true) &&
-                                            (labelFor ? (
+                                            Tripetto.castToBoolean(node.props.nameVisible, true) && (
                                                 <label htmlFor={labelFor}>
                                                     {settings.enumerators && node.enumerator && `${node.enumerator}. `}
                                                     {markdownToJSX(node.props.name || "...", node.context)}
                                                     {required && <span className="text-danger">*</span>}
                                                 </label>
-                                            ) : (
-                                                <>
-                                                    {settings.enumerators && node.enumerator && `${node.enumerator}. `}
-                                                    {markdownToJSX(node.props.name || "...", node.context)}
-                                                    {required && <span className="text-danger">*</span>}
-                                                </>
-                                            )),
+                                            ),
                                         label: (required?: boolean) => (
                                             <>
                                                 {markdownToJSX(node.props.name || "...", node.context, false)}
@@ -63,7 +56,7 @@ export class Blocks extends Tripetto.Collector<IBlockRenderer> {
                                     })}
                                 </div>
                             ) : (
-                                <div key={node.key}>
+                                <div key={node.key} className={momentIndex === 0 && nodeIndex === 0 ? "" : "separate"}>
                                     {Tripetto.castToBoolean(node.props.nameVisible, true) && (
                                         <h3>{markdownToJSX(node.props.name || "...", node.context)}</h3>
                                     )}
