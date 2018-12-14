@@ -1,8 +1,8 @@
 {
-  "name": "tripetto-example-react",
-  "title": "Tripetto collector example (React + Bootstrap 4.1)",
+  "name": "tripetto-example-react-bootstrap",
+  "title": "Tripetto example (React + Bootstrap)",
   "version": "1.0.0",
-  "description": "Demo for implementing the Tripetto collector using React and Bootstrap 4.1.",
+  "description": "Demo for implementing Tripetto using React and Bootstrap.",
   "license": "MIT",
   "private": true,
   "homepage": "https://gitlab.com/tripetto/examples/react",
