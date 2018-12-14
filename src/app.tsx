@@ -1,10 +1,10 @@
-import * as Editor from "./editor";
+import * as Editor from "./editor/editor";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as Superagent from "superagent";
-import { Collector } from "./collector";
+import { Collector } from "./collector/collector";
 import { Export, ISnapshot, Instance } from "tripetto-collector";
-import { Header } from "./header";
+import { Header } from "./header/header";
 import { IDefinition, IEditorChangeEvent, IEditorReadyEvent } from "tripetto";
 import "bootstrap";
 import "./app.scss";

@@ -1,6 +1,6 @@
 import { Editor, IDefinition } from "tripetto";
 import "./blocks";
-import "./index.scss";
+import "./editor.scss";
 
 export const render = (editorElement: HTMLElement | null, definition?: IDefinition) =>
     Editor.open(definition, {

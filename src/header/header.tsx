@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Editor } from "tripetto";
-import { Collector } from "../collector";
+import { Collector } from "../collector/collector";
 import { Blocks } from "../collector/helpers/blocks";
 import { settingsModal } from "./settings";
-import "./index.scss";
+import "./header.scss";
 
 export class Header extends React.PureComponent<{
     collector: React.RefObject<Collector>;

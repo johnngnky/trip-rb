@@ -6,7 +6,7 @@ import { ICollectorSettings } from "./helpers/interfaces/settings";
 import { buttons } from "./helpers/buttons";
 import { progressbar } from "./helpers/progressbar";
 import { pages } from "./helpers/pages";
-import "./index.scss";
+import "./collector.scss";
 import "./blocks";
 
 export class Collector extends React.PureComponent<ICollectorProps> {
