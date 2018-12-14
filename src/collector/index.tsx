@@ -14,11 +14,11 @@ export class Collector extends React.PureComponent<ICollectorProps> {
     readonly blocks = new Blocks(this.props.definition, this.props.mode || "paginated", this.props.snapshot, this.props.preview);
 
     /** Contains some settings for the collector (they can be changed during runtime). */
-    readonly settings = {
+    readonly settings: ICollectorSettings = {
         enumerators: Tripetto.castToBoolean(this.props.enumerators),
         pages: Tripetto.castToBoolean(this.props.pages),
         buttons: this.props.buttons || "inline",
-        progressbar: Tripetto.castToBoolean(this.props.progressbar, false)
+        progressbar: Tripetto.castToBoolean(this.props.progressbar)
     };
 
     /** Render the collector. */
