@@ -33,8 +33,9 @@
     }
 
     label {
-      span.text-danger {
+      span.required {
         padding-left: 4px;
+        color: red;
       }
     }
   }

@@ -25,13 +25,13 @@ export class Blocks extends Tripetto.Collector<IBlockRenderer> {
                                                 <label htmlFor={labelFor}>
                                                     {settings.enumerators && node.enumerator && `${node.enumerator}. `}
                                                     {markdownToJSX(node.props.name || "...", node.context)}
-                                                    {required && <span className="text-danger">*</span>}
+                                                    {required && <span className="required">*</span>}
                                                 </label>
                                             ),
                                         label: (required?: boolean) => (
                                             <>
                                                 {markdownToJSX(node.props.name || "...", node.context, false)}
-                                                {required && <span className="text-danger">*</span>}
+                                                {required && <span className="required">*</span>}
                                             </>
                                         ),
                                         get description(): React.ReactNode {
