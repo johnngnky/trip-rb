@@ -16,7 +16,19 @@ const SNAPSHOT = "tripetto-example-react-bootstrap-snapshot";
 // Here we try to retrieve that saved data.
 const definition: IDefinition = JSON.parse(localStorage.getItem(DEFINITION) || "null") || undefined;
 const snapshot: ISnapshot = JSON.parse(localStorage.getItem(SNAPSHOT) || "null") || undefined;
-let demo: IDefinition;
+let demoDefinition: IDefinition;
+
+// Fetch our demo form
+Superagent.get("demo.json").end((error: {}, response: Superagent.Response) => {
+    if (response.ok) {
+        demoDefinition = JSON.parse(response.text);
+
+        // If there was no definition found in the local store, use our demo definition.
+        if (!definition) {
+            editor.load(demoDefinition);
+        }
+    }
+});
 
 // Render the editor.
 const editor = Editor.render(document.getElementById("editor"), definition);
@@ -62,7 +74,7 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
                 localStorage.removeItem(DEFINITION);
                 localStorage.removeItem(SNAPSHOT);
 
-                editor.definition = demo;
+                editor.definition = demoDefinition;
 
                 if (collector.current) {
                     collector.current.reset();
@@ -88,15 +100,3 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
 // This is only necessary when you embed the editor in a custom element.
 window.addEventListener("resize", () => editor.resize());
 window.addEventListener("orientationchange", () => editor.resize());
-
-// Fetch our demo form
-Superagent.get("demo.json").end((error: {}, response: Superagent.Response) => {
-    if (response.ok) {
-        demo = JSON.parse(response.text);
-
-        // If there was no definition found in the local store, use our demo definition.
-        if (!definition) {
-            editor.load(demo);
-        }
-    }
-});
