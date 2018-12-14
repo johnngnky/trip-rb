@@ -10,8 +10,9 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class NumberBlock extends Number implements IBlockRenderer {
     render(h: IBlockHelper): JSX.Element {
-        const slot = Tripetto.assert(this.slot("number"));
+        const slot = Tripetto.assert(this.slot<Tripetto.Slots.Numeric>("number"));
         const value = Tripetto.assert(this.value<number>(slot));
+        const step = (slot.precision && `0.${Tripetto.Str.fill("0", slot.precision - 1)}1`) || "1";
 
         return (
             <div className="form-group">
@@ -28,6 +29,7 @@ export class NumberBlock extends Number implements IBlockRenderer {
                         required={slot.required}
                         defaultValue={value.hasValue ? value.string : undefined}
                         placeholder={h.placeholder}
+                        step={step}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                             value.pristine = e.target.value !== "" ? e.target.value : undefined;
                         }}

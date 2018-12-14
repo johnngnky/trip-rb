@@ -1,6 +1,6 @@
 export interface ICollectorSettings {
-    /** Specifies if block numerators (question numbers) should be displayed. */
-    numerators: boolean;
+    /** Specifies if block enumerators (question numbers) should be displayed. */
+    enumerators: boolean;
 
     /** Specifies if the page indicators should be displayed (only available in paginated mode). */
     pages: boolean;

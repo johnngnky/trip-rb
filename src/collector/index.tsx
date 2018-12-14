@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as Tripetto from "tripetto-collector";
-import { Blocks } from "./blocks/blocks";
+import { Blocks } from "./helpers/blocks";
 import { ICollectorProps } from "./helpers/interfaces/props";
 import { ICollectorSettings } from "./helpers/interfaces/settings";
 import { buttons } from "./helpers/buttons";
@@ -13,10 +13,10 @@ export class Collector extends React.PureComponent<ICollectorProps> {
     /** Contains the blocks renderer instance. */
     readonly blocks = new Blocks(this.props.definition, this.props.mode || "paginated", this.props.snapshot, this.props.preview);
 
-    /** Contains some mutable settings for the collector (they can be changed during runtime). */
+    /** Contains some settings for the collector (they can be changed during runtime). */
     readonly settings = {
-        numerators: Tripetto.castToBoolean(this.props.numerators, false),
-        pages: Tripetto.castToBoolean(this.props.pages, true),
+        enumerators: Tripetto.castToBoolean(this.props.enumerators),
+        pages: Tripetto.castToBoolean(this.props.pages),
         buttons: this.props.buttons || "inline",
         progressbar: Tripetto.castToBoolean(this.props.progressbar, false)
     };
@@ -106,7 +106,7 @@ export class Collector extends React.PureComponent<ICollectorProps> {
 
     /** Change settings. */
     changeSettings(settings: Partial<ICollectorSettings>): void {
-        this.settings.numerators = Tripetto.isBoolean(settings.numerators) ? settings.numerators : this.settings.numerators;
+        this.settings.enumerators = Tripetto.isBoolean(settings.enumerators) ? settings.enumerators : this.settings.enumerators;
         this.settings.pages = Tripetto.isBoolean(settings.pages) ? settings.pages : this.settings.pages;
         this.settings.buttons = Tripetto.isString(settings.buttons) ? settings.buttons : this.settings.buttons;
         this.settings.progressbar = Tripetto.isBoolean(settings.progressbar) ? settings.progressbar : this.settings.progressbar;
@@ -114,9 +114,9 @@ export class Collector extends React.PureComponent<ICollectorProps> {
         this.forceUpdate();
     }
 
-    /** Reloads with a new definition. */
-    reload(definition: Tripetto.IDefinition): void {
-        this.blocks.reload(definition);
+    /** Start the collector. */
+    start(): void {
+        this.blocks.start();
     }
 
     /** Pauses the collector. */
@@ -128,5 +128,20 @@ export class Collector extends React.PureComponent<ICollectorProps> {
         }
 
         return snapshot;
+    }
+
+    /** Stop the collector. */
+    stop(): void {
+        this.blocks.stop();
+    }
+
+    /** Resets the collector. */
+    reset(): void {
+        this.blocks.restart(false);
+    }
+
+    /** Reloads with a new definition. */
+    reload(definition: Tripetto.IDefinition): void {
+        this.blocks.reload(definition);
     }
 }

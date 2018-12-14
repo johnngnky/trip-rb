@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Collector } from "../collector";
-import { Blocks } from "../collector/blocks/blocks";
+import { Blocks } from "../collector/helpers/blocks";
 
-export const settingsModal = (collector: Collector, blocks: Blocks) => (
+export const settingsModal = (collector: Collector) => (
     <div className="modal" id="settingsModal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
         <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
@@ -20,60 +20,53 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                         <div className="custom-control custom-radio mb-3">
                             <input
                                 type="radio"
-                                id="paginated"
+                                id="setting-mode-paginated"
                                 name="mode"
-                                defaultChecked={blocks.mode === "paginated"}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (blocks.mode = "paginated")}
+                                defaultChecked={collector.blocks.mode === "paginated"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.blocks.mode = "paginated")}
                                 className="custom-control-input"
-                                aria-describedby="paginated_explanation"
+                                aria-describedby="setting-mode-paginated-label"
                             />
-                            <label htmlFor="paginated" className="custom-control-label">
+                            <label htmlFor="setting-mode-paginated" className="custom-control-label">
                                 Paginated
-                                <small className="form-text text-secondary" id="paginated_explanation">
-                                    {
-                                        // tslint:disable-next-line:max-line-length
-                                        "Blocks are presented page for page and the user navigates through the pages using the next and back buttons."
-                                    }
+                                <small className="form-text text-secondary" id="setting-mode-paginated-label">
+                                    Blocks are presented page for page and the user navigates through the pages using the next and back
+                                    buttons.
                                 </small>
                             </label>
                         </div>
                         <div className="custom-control custom-radio mb-3">
                             <input
                                 type="radio"
-                                id="continuous"
+                                id="setting-mode-continuous"
                                 name="mode"
-                                defaultChecked={blocks.mode === "continuous"}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (blocks.mode = "continuous")}
+                                defaultChecked={collector.blocks.mode === "continuous"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.blocks.mode = "continuous")}
                                 className="custom-control-input"
-                                aria-describedby="continuous_explanation"
+                                aria-describedby="setting-mode-continuous-label"
                             />
-                            <label htmlFor="continuous" className="custom-control-label">
+                            <label htmlFor="setting-mode-continuous" className="custom-control-label">
                                 Continuous
-                                <small className="form-text text-secondary" id="continuous_explanation">
-                                    {
-                                        // tslint:disable-next-line:max-line-length
-                                        "This will keep all past blocks in view as the user navigates using the next and back buttons."
-                                    }
+                                <small className="form-text text-secondary" id="setting-mode-continuous-label">
+                                    This will keep all past blocks in view as the user navigates using the next and back buttons.
                                 </small>
                             </label>
                         </div>
                         <div className="custom-control custom-radio mb-3">
                             <input
                                 type="radio"
-                                id="progressive"
+                                id="setting-mode-progressive"
                                 name="mode"
-                                defaultChecked={blocks.mode === "progressive"}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (blocks.mode = "progressive")}
+                                defaultChecked={collector.blocks.mode === "progressive"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.blocks.mode = "progressive")}
                                 className="custom-control-input"
-                                aria-describedby="progressive_explanation"
+                                aria-describedby="setting-mode-progressive-label"
                             />
-                            <label htmlFor="progressive" className="custom-control-label">
+                            <label htmlFor="setting-mode-progressive" className="custom-control-label">
                                 Progressive
-                                <small className="form-text text-secondary" id="progressive_explanation">
-                                    {
-                                        // tslint:disable-next-line:max-line-length
-                                        "In this mode all possible blocks are presented to the user. The user does not need to navigate using the next and back buttons (so we can hide those buttons)."
-                                    }
+                                <small className="form-text text-secondary" id="setting-mode-progressive-label">
+                                    In this mode all possible blocks are presented to the user. The user does not need to navigate using the
+                                    next and back buttons (so we can hide those buttons).
                                 </small>
                             </label>
                         </div>
@@ -82,30 +75,30 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                         <div className="form-group">
                             <div className="custom-control custom-checkbox">
                                 <input
-                                    id="numerators"
+                                    id="setting-enumerators"
                                     type="checkbox"
-                                    defaultChecked={collector.settings.numerators}
+                                    defaultChecked={collector.settings.enumerators}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                         collector.changeSettings({
-                                            numerators: e.target.checked
+                                            enumerators: e.target.checked
                                         })
                                     }
                                     className="custom-control-input"
-                                    aria-describedby="numerators_explanation"
+                                    aria-describedby="setting-enumerators-label"
                                 />
-                                <label htmlFor="numerators" className="custom-control-label">
-                                    Numerators
-                                    <small className="form-text text-secondary" id="numerators_explanation">
-                                        Shows numbers in labels.
+                                <label htmlFor="setting-enumerators" className="custom-control-label">
+                                    Enumerators
+                                    <small className="form-text text-secondary" id="setting-enumerators-label">
+                                        Shows question numbers for blocks that collect data.
                                     </small>
                                 </label>
                             </div>
                         </div>
-                        {blocks.mode === "paginated" && (
+                        {collector.blocks.mode === "paginated" && (
                             <div className="form-group">
                                 <div className="custom-control custom-checkbox">
                                     <input
-                                        id="pages"
+                                        id="setting-pages"
                                         type="checkbox"
                                         defaultChecked={collector.settings.pages}
                                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -114,12 +107,12 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                                             })
                                         }
                                         className="custom-control-input"
-                                        aria-describedby="pages_explanation"
+                                        aria-describedby="setting-pages-label"
                                     />
-                                    <label htmlFor="pages" className="custom-control-label">
-                                        Page navigation
-                                        <small className="form-text text-secondary" id="pages_explanation">
-                                            Shows pages-index in paginated mode.
+                                    <label htmlFor="setting-pages" className="custom-control-label">
+                                        Pages
+                                        <small className="form-text text-secondary" id="setting-pages-label">
+                                            Shows an index with pages (only works in paginated mode).
                                         </small>
                                     </label>
                                 </div>
@@ -128,7 +121,7 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                         <div className="form-group">
                             <div className="custom-control custom-checkbox">
                                 <input
-                                    id="buttons-sticky"
+                                    id="setting-buttons"
                                     type="checkbox"
                                     defaultChecked={collector.settings.buttons === "sticky"}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -137,12 +130,12 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                                         })
                                     }
                                     className="custom-control-input"
-                                    aria-describedby="buttons-sticky_explanation"
+                                    aria-describedby="setting-buttons-label"
                                 />
-                                <label htmlFor="buttons-sticky" className="custom-control-label">
+                                <label htmlFor="setting-buttons" className="custom-control-label">
                                     Sticky buttons
-                                    <small className="form-text text-secondary" id="buttons-sticky_explanation">
-                                        Shows buttons sticky to bottom of the collector-window.
+                                    <small className="form-text text-secondary" id="setting-buttons-label">
+                                        Shows navigation buttons sticky to bottom instead of inline.
                                     </small>
                                 </label>
                             </div>
@@ -150,7 +143,7 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                         <div className="form-group">
                             <div className="custom-control custom-checkbox">
                                 <input
-                                    id="progressbar"
+                                    id="setting-progressbar"
                                     type="checkbox"
                                     defaultChecked={collector.settings.progressbar}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -159,12 +152,12 @@ export const settingsModal = (collector: Collector, blocks: Blocks) => (
                                         })
                                     }
                                     className="custom-control-input"
-                                    aria-describedby="progressbar_explanation"
+                                    aria-describedby="setting-progressbar-label"
                                 />
-                                <label htmlFor="progressbar" className="custom-control-label">
+                                <label htmlFor="setting-progressbar" className="custom-control-label">
                                     Progressbar
-                                    <small className="form-text text-secondary" id="progressbar_explanation">
-                                        Shows progressbar.
+                                    <small className="form-text text-secondary" id="setting-progressbar-label">
+                                        Shows a progressbar.
                                     </small>
                                 </label>
                             </div>

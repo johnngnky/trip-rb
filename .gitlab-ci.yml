@@ -8,3 +8,16 @@ before_script:
 test:
   script:
     - npm run make
+
+pages:
+  stage: deploy
+  script:
+    - npm run make
+  environment:
+    name: Production
+    url: https://react-bootstrap-example.tripetto.com/
+  artifacts:
+    paths:
+      - static
+  only:
+    - master

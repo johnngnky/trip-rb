@@ -5,14 +5,18 @@ import * as Superagent from "superagent";
 import { Collector } from "./collector";
 import { Export, ISnapshot, Instance } from "tripetto-collector";
 import { Header } from "./header";
-import { IEditorChangeEvent, IEditorReadyEvent } from "tripetto";
+import { IDefinition, IEditorChangeEvent, IEditorReadyEvent } from "tripetto";
 import "bootstrap";
 import "./app.scss";
 
+const DEFINITION = "tripetto-example-react-bootstrap-definition";
+const SNAPSHOT = "tripetto-example-react-bootstrap-snapshot";
+
 // For this demo we use the local store to save the definition and snapshot.
 // Here we try to retrieve that saved data.
-const definition = JSON.parse(localStorage.getItem("tripetto-example-definition") || "null") || undefined;
-const snapshot = JSON.parse(localStorage.getItem("tripetto-example-snapshot") || "null") || undefined;
+const definition: IDefinition = JSON.parse(localStorage.getItem(DEFINITION) || "null") || undefined;
+const snapshot: ISnapshot = JSON.parse(localStorage.getItem(SNAPSHOT) || "null") || undefined;
+let demo: IDefinition;
 
 // Render the editor.
 const editor = Editor.render(document.getElementById("editor"), definition);
@@ -31,8 +35,6 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
         <Collector
             ref={collector}
             definition={editorEvent.definition}
-            mode="progressive"
-            buttons="sticky"
             snapshot={snapshot}
             update={header}
             onFinish={(i: Instance) => {
@@ -44,19 +46,36 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
             }}
             onPause={(s: ISnapshot) => {
                 // Store the snapshot in the local store, so we can restore it on browser refresh.
-                localStorage.setItem("tripetto-example-snapshot", JSON.stringify(s));
+                localStorage.setItem(SNAPSHOT, JSON.stringify(s));
             }}
         />,
         document.getElementById("collector")
     );
 
     // Render the header component.
-    ReactDOM.render(<Header ref={header} editor={editor} collector={collector} />, document.getElementById("header"));
+    ReactDOM.render(
+        <Header
+            ref={header}
+            editor={editor}
+            collector={collector}
+            reset={() => {
+                localStorage.removeItem(DEFINITION);
+                localStorage.removeItem(SNAPSHOT);
+
+                editor.definition = demo;
+
+                if (collector.current) {
+                    collector.current.reset();
+                }
+            }}
+        />,
+        document.getElementById("header")
+    );
 
     // Store the definition in the local store upon each editor change and reload the collector
     editor.hook("OnChange", "synchronous", (changeEvent: IEditorChangeEvent) => {
         // Store the definition in the persistent local store
-        localStorage.setItem("tripetto-example-definition", JSON.stringify(changeEvent.definition));
+        localStorage.setItem(DEFINITION, JSON.stringify(changeEvent.definition));
 
         // Reload the collector with the new definition
         if (collector.current) {
@@ -70,11 +89,14 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
 window.addEventListener("resize", () => editor.resize());
 window.addEventListener("orientationchange", () => editor.resize());
 
-// If there was no definition found in the local store, fetch our demo definition.
-if (!definition) {
-    Superagent.get("demo.json").end((error: {}, response: Superagent.Response) => {
-        if (response.ok) {
-            editor.load(JSON.parse(response.text));
+// Fetch our demo form
+Superagent.get("demo.json").end((error: {}, response: Superagent.Response) => {
+    if (response.ok) {
+        demo = JSON.parse(response.text);
+
+        // If there was no definition found in the local store, use our demo definition.
+        if (!definition) {
+            editor.load(demo);
         }
-    });
-}
+    }
+});

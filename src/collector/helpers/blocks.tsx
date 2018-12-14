@@ -1,11 +1,11 @@
 import * as Tripetto from "tripetto-collector";
 import * as React from "react";
-import { ICollectorSettings } from "../helpers/interfaces/settings";
-import { IBlockRenderer } from "../helpers/interfaces/renderer";
-import { markdownToJSX } from "../helpers/markdown";
-import { buttons } from "../helpers/buttons";
-import { progressbar } from "../helpers/progressbar";
-import { pages } from "../helpers/pages";
+import { ICollectorSettings } from "./interfaces/settings";
+import { IBlockRenderer } from "./interfaces/renderer";
+import { markdownToJSX } from "./markdown";
+import { buttons } from "./buttons";
+import { progressbar } from "./progressbar";
+import { pages } from "./pages";
 
 export class Blocks extends Tripetto.Collector<IBlockRenderer> {
     render(settings: ICollectorSettings): JSX.Element | undefined {
@@ -24,13 +24,13 @@ export class Blocks extends Tripetto.Collector<IBlockRenderer> {
                                             Tripetto.castToBoolean(node.props.nameVisible, true) &&
                                             (labelFor ? (
                                                 <label htmlFor={labelFor}>
-                                                    {settings.numerators && node.numerator && `${node.numerator}. `}
+                                                    {settings.enumerators && node.enumerator && `${node.enumerator}. `}
                                                     {markdownToJSX(node.props.name || "...", node.context)}
                                                     {required && <span className="text-danger">*</span>}
                                                 </label>
                                             ) : (
                                                 <>
-                                                    {settings.numerators && node.numerator && `${node.numerator}. `}
+                                                    {settings.enumerators && node.enumerator && `${node.enumerator}. `}
                                                     {markdownToJSX(node.props.name || "...", node.context)}
                                                     {required && <span className="text-danger">*</span>}
                                                 </>

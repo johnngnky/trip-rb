@@ -13,8 +13,8 @@ export interface ICollectorProps {
     /** Specifies if the preview mode should be enabled or not (default is `false`) */
     readonly preview?: boolean;
 
-    /** Specifies if block numerators (question numbers) should be displayed (default is `false`). */
-    readonly numerators?: boolean;
+    /** Specifies if block enumerators (question numbers) should be displayed (default is `false`). */
+    readonly enumerators?: boolean;
 
     /** Specifies if the page indicators should be displayed (only available in paginated mode, default is `true`). */
     readonly pages?: boolean;

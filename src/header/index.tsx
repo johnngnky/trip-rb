@@ -1,13 +1,14 @@
 import * as React from "react";
 import { Editor } from "tripetto";
 import { Collector } from "../collector";
-import { Blocks } from "../collector/blocks/blocks";
+import { Blocks } from "../collector/helpers/blocks";
 import { settingsModal } from "./settings";
 import "./index.scss";
 
 export class Header extends React.PureComponent<{
     collector: React.RefObject<Collector>;
     editor: Editor;
+    reset: () => void;
 }> {
     private get collector(): Collector {
         if (this.props.collector.current instanceof Collector) {
@@ -27,8 +28,8 @@ export class Header extends React.PureComponent<{
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-6 d-flex align-items-center">
-                            <h1 className="mr-1 mr-md-3 text-truncate">
-                                React + Bootstrap 4.1
+                            <h1 className="mr-1 mr-md-3 text-truncate" onClick={() => this.props.editor.edit()}>
+                                {this.blocks.name || "Unnamed"}
                             </h1>
                             <a
                                 href="https://gitlab.com/tripetto/examples/react"
@@ -48,6 +49,10 @@ export class Header extends React.PureComponent<{
                                 <i className="fas fa-book-reader pr-2" />
                                 View readme
                             </a>
+                            <a href="#" onClick={() => this.props.reset()} role="button" className="btn btn-sm btn-link">
+                                <i className="fas fa-redo pr-2" />
+                                Reset demo
+                            </a>
                         </div>
                         <div className="col-6 d-flex justify-content-end align-items-center">
                             {!this.blocks.preview && (
@@ -58,7 +63,7 @@ export class Header extends React.PureComponent<{
                                             className="btn btn-primary"
                                             title="Start form"
                                             disabled={!this.blocks.isStopped && !this.blocks.isFinished}
-                                            onClick={() => this.blocks.start()}
+                                            onClick={() => this.collector.start()}
                                         >
                                             <i className="fas fa-play fa-fw" />
                                         </button>
@@ -67,7 +72,7 @@ export class Header extends React.PureComponent<{
                                             className="btn btn-primary"
                                             title="Pause form"
                                             disabled={!this.blocks.isRunning}
-                                            onClick={() => this.blocks.pause()}
+                                            onClick={() => this.collector.pause()}
                                         >
                                             <i className="fas fa-pause fa-fw" />
                                         </button>
@@ -76,7 +81,7 @@ export class Header extends React.PureComponent<{
                                             className="btn btn-primary"
                                             title="Stop form"
                                             disabled={!this.blocks.isRunning}
-                                            onClick={() => this.blocks.stop()}
+                                            onClick={() => this.collector.stop()}
                                         >
                                             <i className="fas fa-stop fa-fw" />
                                         </button>
@@ -115,7 +120,7 @@ export class Header extends React.PureComponent<{
                     </div>
                 </div>
 
-                {settingsModal(this.collector, this.blocks)}
+                {settingsModal(this.collector)}
             </>
         );
     }
