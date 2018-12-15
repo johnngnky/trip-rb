@@ -23,7 +23,7 @@ export class URLBlock extends URL implements IBlockRenderer {
                     type="url"
                     required={slot.required}
                     defaultValue={url.value}
-                    placeholder={h.placeholder}
+                    placeholder={h.placeholder || "https://"}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => (url.value = e.target.value)}
                     onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = url.string)}
                     className="form-control"
