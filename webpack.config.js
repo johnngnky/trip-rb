@@ -1,5 +1,6 @@
 const path = require("path");
 const extract = require("mini-css-extract-plugin");
+const copy = require("copy-webpack-plugin");
 
 module.exports = {
     entry: "./src/app.tsx",
@@ -55,7 +56,8 @@ module.exports = {
     plugins: [
         new extract({
             filename: "bundle.css"
-        })
+        }),
+        new copy([{ from: "node_modules/tripetto/fonts/", to: "fonts/" }])
     ],
     devServer: {
         contentBase: path.join(__dirname, "static"),
