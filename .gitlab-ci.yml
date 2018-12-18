@@ -5,9 +5,12 @@ before_script:
   - npm --version
   - npm ci || npm install
 
-test:
+make:
   script:
     - npm run make
+  artifacts:
+    paths:
+      - static/
 
 pages:
   stage: deploy
