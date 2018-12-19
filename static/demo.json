@@ -415,7 +415,7 @@
                   "id": "84442bf92fcd4b13c5c1cd60082532b9aac3ac1af4dfda98a5d7381827287fe7",
                   "name": "👏 Sweet!",
                   "nameVisible": true,
-                  "description": "Start with reading our docs or dive into one of our example projects!\n\n📘 You can find all the stuff you need **[here](https://docs.tripetto.com/)**.\n\n👨‍💻 Or take a peek under the hood of this **[demo](https://gitlab.com/tripetto/examples/angular)**. You may use the code of this example free of charge for your own collector. Have a blast!"
+                  "description": "Start with reading our docs or dive into one of our example projects!\n\n📘 You can find all the stuff you need **[here](https://docs.tripetto.com/)**.\n\n👨‍💻 Or take a peek under the hood of this **[demo](https://gitlab.com/tripetto/examples/react)**. You may use the code of this example free of charge for your own collector. Have a blast!"
                 }
               ]
             }
