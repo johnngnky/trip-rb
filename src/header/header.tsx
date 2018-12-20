@@ -62,7 +62,7 @@ export class Header extends React.PureComponent<{
                                             type="button"
                                             className="btn btn-primary"
                                             title="Start form"
-                                            disabled={!this.blocks.isStopped && !this.blocks.isFinished}
+                                            disabled={this.blocks.isEmpty || (!this.blocks.isStopped && !this.blocks.isFinished)}
                                             onClick={() => this.collector.start()}
                                         >
                                             <i className="fas fa-play fa-fw" />

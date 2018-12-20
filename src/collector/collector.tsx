@@ -29,7 +29,7 @@ export class Collector extends React.PureComponent<ICollectorProps> {
                     <div className="row">
                         <div className="col">
                             {this.blocks.render(this.settings) ||
-                                (this.blocks.isEmpty && (
+                                ((this.blocks.status === "empty" || this.blocks.status === "preview") && (
                                     <div className="text-center mt-5">
                                         <div className="text-center mt-5">
                                             <h3>👋 Nothing to show here yet</h3>
