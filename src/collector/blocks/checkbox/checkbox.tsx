@@ -9,7 +9,7 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-checkbox"
 })
 export class CheckboxBlock extends Checkbox implements IBlockRenderer {
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const slot = Tripetto.assert(this.slot("checked"));
         const checked = Tripetto.assert(this.value<boolean>(slot));
 

@@ -9,7 +9,7 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-textarea"
 })
 export class TextareaBlock extends Textarea implements IBlockRenderer {
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const slot = Tripetto.assert(this.slot("value"));
         const value = Tripetto.assert(this.value<string>(slot));
 

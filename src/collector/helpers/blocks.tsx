@@ -8,11 +8,12 @@ import { progressbar } from "./progressbar";
 import { pages } from "./pages";
 
 export class Blocks extends Tripetto.Collector<IBlockRenderer> {
-    render(settings: ICollectorSettings): JSX.Element | undefined {
+    render(settings: ICollectorSettings): React.ReactNode {
         const storyline = this.storyline;
 
         return (
-            storyline && (
+            storyline &&
+            !storyline.isEmpty && (
                 <>
                     {storyline.map((moment: Tripetto.Moment<IBlockRenderer>, momentIndex: number) =>
                         moment.nodes.map((node: Tripetto.IObservableNode<IBlockRenderer>, nodeIndex: number) =>
@@ -68,10 +69,9 @@ export class Blocks extends Tripetto.Collector<IBlockRenderer> {
                         )
                     )}
 
-                    {storyline.isEmpty && (
+                    {storyline.isEvaluating && (
                         <div className="text-center mt-5">
-                            <h3>👋 Nothing to show here yet</h3>
-                            <p className="text-secondary">Add blocks to the form first to get the magic going.</p>
+                            <p className="text-secondary">⏳ Please wait...</p>
                         </div>
                     )}
 

@@ -23,7 +23,7 @@ export class DropdownBlock extends Dropdown implements IBlockRenderer {
         }
     }
 
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const slot = Tripetto.assert(this.slot("option"));
         const dropdown = Tripetto.assert(this.value<string>(slot));
 

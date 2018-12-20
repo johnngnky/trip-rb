@@ -9,7 +9,7 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-number"
 })
 export class NumberBlock extends Number implements IBlockRenderer {
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const slot = Tripetto.assert(this.slot<Tripetto.Slots.Numeric>("number"));
         const value = Tripetto.assert(this.value<number>(slot));
 

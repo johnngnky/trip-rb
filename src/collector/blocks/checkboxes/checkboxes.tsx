@@ -9,7 +9,7 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-checkboxes"
 })
 export class CheckboxesBlock extends Checkboxes implements IBlockRenderer {
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         return (
             <div className="form-group">
                 {h.name()}

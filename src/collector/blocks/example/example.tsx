@@ -8,7 +8,7 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "example"
 })
 export class TextBlock extends Tripetto.NodeBlock implements IBlockRenderer {
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const exampleSlot = Tripetto.assert(this.slot("example-slot"));
         const exampleValue = Tripetto.assert(this.value<string>(exampleSlot));
 

@@ -9,7 +9,7 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-password"
 })
 export class PasswordBlock extends Password implements IBlockRenderer {
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const slot = Tripetto.assert(this.slot("password"));
         const password = Tripetto.assert(this.value<string>(slot));
 

@@ -15,7 +15,7 @@ export class RadiobuttonsBlock extends Radiobuttons implements IBlockRenderer {
         button.set(selectedButton && (selectedButton.value || selectedButton.name), id);
     }
 
-    render(h: IBlockHelper): JSX.Element {
+    render(h: IBlockHelper): React.ReactNode {
         const slot = Tripetto.assert(this.slot("button"));
         const button = Tripetto.assert(this.value<string>("button"));
         const selected =

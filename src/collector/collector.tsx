@@ -22,23 +22,22 @@ export class Collector extends React.PureComponent<ICollectorProps> {
     };
 
     /** Render the collector. */
-    render(): JSX.Element {
+    render(): React.ReactNode {
         return (
             <>
-                <section className={`container${this.settings.buttons === "sticky" && !this.blocks.preview ? " sticky" : ""}`}>
+                <section className={`container${this.settings.buttons === "sticky" && this.blocks.status !== "preview" ? " sticky" : ""}`}>
                     <div className="row">
                         <div className="col">
                             {this.blocks.render(this.settings) ||
                                 (this.blocks.isEmpty && (
                                     <div className="text-center mt-5">
-                                        <h3>👋 The form stopped itself</h3>
-                                        <p className="text-secondary">
-                                            The form stopped immediately after it was started because there are no blocks in it. Add blocks
-                                            to the form first to get the magic going.
-                                        </p>
+                                        <div className="text-center mt-5">
+                                            <h3>👋 Nothing to show here yet</h3>
+                                            <p className="text-secondary">Add blocks to the form first to get the magic going.</p>
+                                        </div>
                                     </div>
                                 )) ||
-                                (this.blocks.isFinished && (
+                                (this.blocks.status === "finished" && (
                                     <div className="text-center mt-5">
                                         <h3>✔ You’ve completed the form</h3>
                                         <p className="text-secondary">
@@ -47,13 +46,13 @@ export class Collector extends React.PureComponent<ICollectorProps> {
                                         </p>
                                     </div>
                                 )) ||
-                                (this.blocks.isStopped && (
+                                (this.blocks.status === "stopped" && (
                                     <div className="text-center mt-5">
                                         <h3>⏹ You’ve stopped the form</h3>
                                         <p className="text-secondary">Press the play icon to start a new session.</p>
                                     </div>
                                 )) ||
-                                (this.blocks.isPaused && (
+                                (this.blocks.status === "paused" && (
                                     <div className="text-center mt-5">
                                         <h3>⏸ You’ve paused the form</h3>
                                         <p className="text-secondary">
@@ -70,7 +69,8 @@ export class Collector extends React.PureComponent<ICollectorProps> {
                         </div>
                     </div>
                 </section>
-                {!this.blocks.preview && this.settings.buttons === "sticky" && this.blocks.storyline && (
+
+                {this.blocks.status !== "preview" && this.settings.buttons === "sticky" && this.blocks.storyline && (
                     <nav className="navbar navbar-expand navbar-dark bg-light buttons-sticky">
                         <div className="container">
                             {buttons(this.blocks.storyline)}
@@ -91,7 +91,7 @@ export class Collector extends React.PureComponent<ICollectorProps> {
             this.forceUpdate();
 
             // If the `update` prop contains a ref of another component, update that component as well.
-            // Kinda hacky approach used to keep the header (that lives as a separate component) in sync :-)
+            // Kinda hacky approach used to keep the header (that lives as a sibling component) in sync :-)
             if (this.props.update && this.props.update.current) {
                 this.props.update.current.forceUpdate();
             }
