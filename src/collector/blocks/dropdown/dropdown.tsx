@@ -24,20 +24,23 @@ export class DropdownBlock extends Dropdown implements IBlockRenderer {
     }
 
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("option"));
-        const dropdown = Tripetto.assert(this.value<string>(slot));
-
-        this.set(dropdown, dropdown.reference);
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <select
                     key={this.key()}
                     id={this.key()}
-                    defaultValue={dropdown.reference}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => this.set(dropdown, e.target.value)}
+                    defaultValue={this.value}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                        this.value = e.target.value;
+                    }}
+                    onFocus={(e: React.FocusEvent<HTMLSelectElement>) => {
+                        e.target.classList.remove("is-invalid");
+                    }}
+                    onBlur={(e: React.FocusEvent<HTMLSelectElement>) => {
+                        e.target.classList.toggle("is-invalid", this.isFailed);
+                    }}
                     className="custom-select"
                     aria-describedby={this.node.explanation && this.key("explanation")}
                 >

@@ -10,12 +10,9 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class NumberBlock extends Number implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot<Tripetto.Slots.Numeric>("number"));
-        const value = Tripetto.assert(this.value<number>(slot));
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <div className="input-group">
                     <div className="input-group-prepend">
@@ -25,30 +22,32 @@ export class NumberBlock extends Number implements IBlockRenderer {
                         key={this.key()}
                         id={this.key()}
                         type="text"
-                        required={slot.required}
-                        defaultValue={value.hasValue ? value.string : undefined}
+                        required={this.required}
+                        defaultValue={this.value}
                         placeholder={h.placeholder}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                            value.pristine = e.target.value !== "" ? e.target.value : undefined;
+                            this.value = e.target.value;
                         }}
                         onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
-                            const input = e.target as HTMLInputElement;
+                            const el = e.target;
+
+                            this.focus();
 
                             // Switch to number type when focus is gained.
-                            input.value = `${value.value}`;
-                            input.type = "number";
-                            input.step = (slot.precision && `0.${Tripetto.Str.fill("0", slot.precision - 1)}1`) || "1";
-
-                            if (!value.hasValue) {
-                                value.pristine = 0;
-                            }
+                            el.value = this.value;
+                            el.type = "number";
+                            el.step = this.stepSize;
+                            el.classList.remove("is-invalid");
                         }}
                         onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
-                            const input = e.target as HTMLInputElement;
+                            const el = e.target;
+
+                            this.blur();
 
                             // Switch to text type to allow number prefix and suffix.
-                            input.type = "text";
-                            input.value = value.hasValue ? value.string : "";
+                            el.type = "text";
+                            el.value = this.value;
+                            el.classList.toggle("is-invalid", this.isFailed);
                         }}
                         className="form-control"
                         aria-describedby={this.node.explanation && this.key("explanation")}

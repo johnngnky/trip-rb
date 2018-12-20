@@ -10,22 +10,27 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class URLBlock extends URL implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("url"));
-        const url = Tripetto.assert(this.value<string>(slot));
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <input
                     key={this.key()}
                     id={this.key()}
                     type="url"
-                    required={slot.required}
-                    defaultValue={url.value}
+                    required={this.required}
+                    defaultValue={this.urlSlot.value}
                     placeholder={h.placeholder || "https://"}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (url.value = e.target.value)}
-                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = url.string)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        this.urlSlot.value = e.target.value;
+                    }}
+                    onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                        e.target.classList.remove("is-invalid");
+                    }}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+                        e.target.value = this.urlSlot.string;
+                        e.target.classList.toggle("is-invalid", this.isFailed);
+                    }}
                     className="form-control"
                     aria-describedby={this.node.explanation && this.key("explanation")}
                 />

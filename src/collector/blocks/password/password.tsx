@@ -10,22 +10,27 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class PasswordBlock extends Password implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("password"));
-        const password = Tripetto.assert(this.value<string>(slot));
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <input
                     key={this.key()}
                     id={this.key()}
                     type="password"
-                    required={slot.required}
-                    defaultValue={password.value}
+                    required={this.required}
+                    defaultValue={this.passwordSlot.value}
                     placeholder={h.placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (password.value = e.target.value)}
-                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = password.string)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        this.passwordSlot.value = e.target.value;
+                    }}
+                    onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                        e.target.classList.remove("is-invalid");
+                    }}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+                        e.target.value = this.passwordSlot.string;
+                        e.target.classList.toggle("is-invalid", this.isFailed);
+                    }}
                     className="form-control"
                     aria-describedby={this.node.explanation && this.key("explanation")}
                 />

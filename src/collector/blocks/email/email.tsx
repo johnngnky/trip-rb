@@ -10,12 +10,9 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class EmailBlock extends Email implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("email"));
-        const email = Tripetto.assert(this.value<string>(slot));
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <div className="input-group">
                     <div className="input-group-prepend">
@@ -25,11 +22,19 @@ export class EmailBlock extends Email implements IBlockRenderer {
                         key={this.key()}
                         id={this.key()}
                         type="email"
-                        required={slot.required}
-                        defaultValue={email.value}
+                        required={this.required}
+                        defaultValue={this.emailSlot.value}
                         placeholder={h.placeholder}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (email.value = e.target.value)}
-                        onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = email.string)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            this.emailSlot.value = e.target.value;
+                        }}
+                        onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                            e.target.classList.remove("is-invalid");
+                        }}
+                        onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+                            e.target.value = this.emailSlot.string;
+                            e.target.classList.toggle("is-invalid", this.isFailed);
+                        }}
                         className="form-control"
                         aria-describedby={this.node.explanation && this.key("explanation")}
                     />

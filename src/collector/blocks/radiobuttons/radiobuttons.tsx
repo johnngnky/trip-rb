@@ -16,21 +16,9 @@ export class RadiobuttonsBlock extends Radiobuttons implements IBlockRenderer {
     }
 
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("button"));
-        const button = Tripetto.assert(this.value<string>("button"));
-        const selected =
-            Tripetto.findFirst(this.props.buttons, (radiobutton: IRadiobutton) =>
-                Tripetto.castToBoolean(button.reference === radiobutton.id)
-            ) ||
-            (slot.required && Tripetto.arrayItem(this.props.buttons, 0));
-
-        if (selected) {
-            this.set(button, selected.id);
-        }
-
         return (
             <div className="form-group">
-                {h.name(slot.required)}
+                {h.name(this.required)}
                 {h.description}
                 {this.props.buttons.map(
                     (radiobutton: IRadiobutton) =>
@@ -41,8 +29,8 @@ export class RadiobuttonsBlock extends Radiobuttons implements IBlockRenderer {
                                     key={this.key(radiobutton.id)}
                                     id={this.key(radiobutton.id)}
                                     name={this.key()}
-                                    defaultChecked={selected === radiobutton}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.set(button, radiobutton.id)}
+                                    defaultChecked={this.isSelected(radiobutton)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.select(radiobutton)}
                                     className="custom-control-input"
                                     aria-describedby={this.node.explanation && this.key("explanation")}
                                 />

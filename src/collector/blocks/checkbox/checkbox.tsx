@@ -10,11 +10,6 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class CheckboxBlock extends Checkbox implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("checked"));
-        const checked = Tripetto.assert(this.value<boolean>(slot));
-
-        checked.confirm();
-
         return (
             <div className="form-group">
                 <div className="custom-control custom-checkbox">
@@ -22,13 +17,13 @@ export class CheckboxBlock extends Checkbox implements IBlockRenderer {
                         key={this.key()}
                         id={this.key()}
                         type="checkbox"
-                        defaultChecked={checked.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checked.value = e.target.checked)}
+                        defaultChecked={this.checkboxSlot.value}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (this.checkboxSlot.value = e.target.checked)}
                         className="custom-control-input"
                         aria-describedby={this.node.explanation && this.key("explanation")}
                     />
                     <label htmlFor={this.key()} className="custom-control-label">
-                        {h.label(slot.required)}
+                        {h.label(this.required)}
                     </label>
                 </div>
                 {h.explanation(this.key("explanation"))}

@@ -10,22 +10,27 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class TextareaBlock extends Textarea implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot("value"));
-        const value = Tripetto.assert(this.value<string>(slot));
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <textarea
                     key={this.key()}
                     id={this.key()}
                     rows={3}
-                    required={slot.required}
-                    defaultValue={value.value}
+                    required={this.required}
+                    defaultValue={this.textareaSlot.value}
                     placeholder={h.placeholder}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => (value.value = e.target.value)}
-                    onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => ((e.target as HTMLTextAreaElement).value = value.string)}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                        this.textareaSlot.value = e.target.value;
+                    }}
+                    onFocus={(e: React.FocusEvent<HTMLTextAreaElement>) => {
+                        e.target.classList.remove("is-invalid");
+                    }}
+                    onBlur={(e: React.FocusEvent<HTMLTextAreaElement>) => {
+                        e.target.value = this.textareaSlot.string;
+                        e.target.classList.toggle("is-invalid", this.isFailed);
+                    }}
                     className="form-control"
                     aria-describedby={this.node.explanation && this.key("explanation")}
                 />

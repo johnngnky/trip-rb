@@ -15,27 +15,23 @@ export class CheckboxesBlock extends Checkboxes implements IBlockRenderer {
                 {h.name()}
                 {h.description}
                 {this.props.checkboxes.map((checkbox: ICheckbox) => {
-                    const checked = Tripetto.assert(this.value<boolean>(checkbox.id));
-
-                    checked.confirm();
+                    const checkboxSlot = this.checkboxSlot(checkbox);
 
                     return (
-                        checkbox.name && (
-                            <div key={this.key(checkbox.id)} className="custom-control custom-checkbox">
-                                <input
-                                    key={checked.key}
-                                    id={checked.key}
-                                    type="checkbox"
-                                    defaultChecked={checked.value}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checked.value = e.target.checked)}
-                                    className="custom-control-input"
-                                    aria-describedby={this.node.explanation && this.key("explanation")}
-                                />
-                                <label htmlFor={checked.key} className="custom-control-label">
-                                    {checkbox.name}
-                                </label>
-                            </div>
-                        )
+                        <div key={checkboxSlot.key} className="custom-control custom-checkbox">
+                            <input
+                                key={checkboxSlot.key}
+                                id={checkboxSlot.key}
+                                type="checkbox"
+                                defaultChecked={checkboxSlot.value}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (checkboxSlot.value = e.target.checked)}
+                                className="custom-control-input"
+                                aria-describedby={this.node.explanation && this.key("explanation")}
+                            />
+                            <label htmlFor={checkboxSlot.key} className="custom-control-label">
+                                {checkbox.name || "..."}
+                            </label>
+                        </div>
                     );
                 })}
                 {h.explanation(this.key("explanation"))}

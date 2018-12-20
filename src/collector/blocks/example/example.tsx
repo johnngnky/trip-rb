@@ -8,16 +8,16 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "example"
 })
 export class TextBlock extends Tripetto.NodeBlock implements IBlockRenderer {
-    render(h: IBlockHelper): React.ReactNode {
-        const exampleSlot = Tripetto.assert(this.slot("example-slot"));
-        const exampleValue = Tripetto.assert(this.value<string>(exampleSlot));
+    readonly exampleSlot = Tripetto.assert(this.valueOf("example-slot"));
+    readonly required = this.exampleSlot.slot.required || false;
 
+    render(h: IBlockHelper): React.ReactNode {
         return (
             <div className="form-group">
-                {h.name(exampleSlot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <div
-                    onClick={() => exampleValue.set("A nice value!")}
+                    onClick={() => this.exampleSlot.set("A nice value!")}
                     style={{
                         color: "red"
                     }}
@@ -25,27 +25,10 @@ export class TextBlock extends Tripetto.NodeBlock implements IBlockRenderer {
                     This is an example block with an example data slot that can be set. If the block is required, the validation will pass
                     as soon as the value is set.
                     <br />
-                    Current value of example slot: <b>{exampleValue.string || "Not set"}</b> (click here to set a value)
+                    Current value of example slot: <b>{this.exampleSlot.string || "Not set"}</b> (click here to set a value)
                 </div>
                 {h.explanation(this.key("explanation"))}
             </div>
         );
-    }
-
-    @Tripetto.validator
-    validate(): boolean {
-        const exampleSlot = this.slot("example-slot");
-
-        if (!exampleSlot) {
-            return false;
-        }
-
-        if (exampleSlot.required) {
-            const exampleValue = this.value(exampleSlot);
-
-            return (exampleValue && exampleValue.hasValue) || false;
-        }
-
-        return true;
     }
 }

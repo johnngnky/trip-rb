@@ -10,23 +10,28 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
 })
 export class TextBlock extends Text implements IBlockRenderer {
     render(h: IBlockHelper): React.ReactNode {
-        const slot = Tripetto.assert(this.slot<Tripetto.Slots.Text>("value"));
-        const value = Tripetto.assert(this.value<string>(slot));
-
         return (
             <div className="form-group">
-                {h.name(slot.required, this.key())}
+                {h.name(this.required, this.key())}
                 {h.description}
                 <input
                     key={this.key()}
                     id={this.key()}
                     type="text"
-                    required={slot.required}
-                    defaultValue={value.value}
+                    required={this.required}
+                    defaultValue={this.textSlot.value}
                     placeholder={h.placeholder}
-                    maxLength={slot.maxLength}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => (value.value = e.target.value)}
-                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => ((e.target as HTMLInputElement).value = value.string)}
+                    maxLength={this.maxLength}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        this.textSlot.value = e.target.value;
+                    }}
+                    onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+                        e.target.classList.remove("is-invalid");
+                    }}
+                    onBlur={(e: React.FocusEvent<HTMLInputElement>) => {
+                        e.target.value = this.textSlot.string;
+                        e.target.classList.toggle("is-invalid", this.isFailed);
+                    }}
                     className="form-control"
                     aria-describedby={this.node.explanation && this.key("explanation")}
                 />
