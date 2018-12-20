@@ -18,7 +18,9 @@ export class CheckboxBlock extends Checkbox implements IBlockRenderer {
                         id={this.key()}
                         type="checkbox"
                         defaultChecked={this.checkboxSlot.value}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => (this.checkboxSlot.value = e.target.checked)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                            this.checkboxSlot.value = e.target.checked;
+                        }}
                         className="custom-control-input"
                         aria-describedby={this.node.explanation && this.key("explanation")}
                     />

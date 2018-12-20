@@ -30,7 +30,9 @@ export class RadiobuttonsBlock extends Radiobuttons implements IBlockRenderer {
                                     id={this.key(radiobutton.id)}
                                     name={this.key()}
                                     defaultChecked={this.isSelected(radiobutton)}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.select(radiobutton)}
+                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                        this.select(radiobutton);
+                                    }}
                                     className="custom-control-input"
                                     aria-describedby={this.node.explanation && this.key("explanation")}
                                 />
