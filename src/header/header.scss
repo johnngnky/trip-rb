@@ -1,0 +1,67 @@
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
+#header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  cursor: default;
+
+  .container-fluid {
+    .row {
+      height: 64px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+      h1 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 0px;
+        padding-bottom: 1px;
+      }
+    }
+  }
+
+  button {
+    i {
+      font-size: 9px;
+      position: relative;
+      top: -2px;
+    }
+  }
+
+  .modal {
+    left: 50%;
+  }
+
+  @at-root .modal-backdrop {
+    position: fixed;
+    top: 64px;
+    right: 0;
+    bottom: 0;
+    left: 50%;
+    z-index: 1040;
+    background-color: #000;
+    transition: opacity 0.15s linear;
+
+    // Fade for backdrop
+    &.fade {
+      opacity: 0;
+    }
+
+    &.show {
+      opacity: 0.5;
+    }
+  }
+
+  .modal-open {
+    overflow: hidden;
+
+    .modal {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+}

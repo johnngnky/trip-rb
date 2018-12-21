@@ -1,0 +1,67 @@
+#collector {
+  position: absolute;
+  left: 50%;
+  right: 0;
+  top: 64px;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  touch-action: auto;
+
+  > section {
+    padding: 32px;
+
+    &.sticky {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 60px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      touch-action: auto;
+    }
+  }
+
+  .form-group {
+    > label:first-child {
+      font-weight: bold;
+    }
+
+    label {
+      span.required {
+        padding-left: 4px;
+        color: red;
+      }
+    }
+  }
+
+  .separate {
+    margin-top: 64px;
+  }
+
+  .buttons {
+    &-inline {
+      margin-top: 16px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+
+      .progress {
+        margin-top: 11px;
+      }
+    }
+
+    &-sticky {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 60px;
+      background-color: #fff;
+    }
+  }
+}
