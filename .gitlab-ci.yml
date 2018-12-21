@@ -11,7 +11,6 @@ package:
   artifacts:
     paths:
       - static/
-
 #pages:
 #  stage: deploy
 #  script:
