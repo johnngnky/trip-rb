@@ -12,15 +12,15 @@ package:
     paths:
       - static/
 
-pages:
-  stage: deploy
-  script:
-    - npm run make
-  environment:
-    name: Production
-    url: https://example-react-bootstrap.tripetto.com/
-  artifacts:
-    paths:
-      - static
-  only:
-    - master
+#pages:
+#  stage: deploy
+#  script:
+#    - npm run make
+#  environment:
+#    name: Production
+#    url: https://example-react-bootstrap.tripetto.com/
+#  artifacts:
+#    paths:
+#      - static
+#  only:
+#    - master
