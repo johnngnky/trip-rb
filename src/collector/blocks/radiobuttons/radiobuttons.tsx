@@ -9,12 +9,6 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-radiobuttons"
 })
 export class RadiobuttonsBlock extends Radiobuttons implements IBlockRenderer {
-    private set(button: Tripetto.Value<string>, id: string | undefined): void {
-        const selectedButton = Tripetto.findFirst(this.props.buttons, (radiobutton: IRadiobutton) => radiobutton.id === id);
-
-        button.set(selectedButton && (selectedButton.value || selectedButton.name), id);
-    }
-
     render(h: IBlockHelper): React.ReactNode {
         return (
             <div className="form-group">

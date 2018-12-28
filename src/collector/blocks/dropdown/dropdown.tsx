@@ -9,20 +9,6 @@ import { IBlockHelper } from "../../helpers/interfaces/helper";
     identifier: "tripetto-block-dropdown"
 })
 export class DropdownBlock extends Dropdown implements IBlockRenderer {
-    private set(dropdown: Tripetto.Value<string>, id: string | undefined): void {
-        let selectedOption = Tripetto.findFirst(this.props.options, (option: IDropdownOption) => option.id === id);
-
-        if (!selectedOption && !this.node.placeholder) {
-            selectedOption = Tripetto.arrayItem(this.props.options, 0);
-        }
-
-        if (selectedOption) {
-            dropdown.set(selectedOption.value || selectedOption.name, selectedOption.id);
-        } else {
-            dropdown.set(undefined, "");
-        }
-    }
-
     render(h: IBlockHelper): React.ReactNode {
         return (
             <div className="form-group">
