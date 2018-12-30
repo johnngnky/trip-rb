@@ -30,8 +30,8 @@ Superagent.get("demo.json").end((error: {}, response: Superagent.Response) => {
     }
 });
 
-// Render the editor.
-const editor = Editor.render(document.getElementById("editor"), definition);
+// Create the editor.
+const editor = Editor.create(document.getElementById("editor"), definition);
 
 // Wait until the editor is ready!
 editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
