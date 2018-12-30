@@ -2,9 +2,9 @@ import { Editor, IDefinition } from "tripetto";
 import "./blocks";
 import "./editor.scss";
 
-export const create = (editorElement: HTMLElement | null, definition?: IDefinition) =>
+export const create = (element: HTMLElement | null, definition?: IDefinition) =>
     Editor.open(definition, {
-        element: editorElement,
+        element: element,
         fonts: "/fonts/",
         disableSaveButton: true,
         disableRestoreButton: true,
