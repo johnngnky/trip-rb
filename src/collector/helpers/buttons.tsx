@@ -15,7 +15,7 @@ export const buttons = (storyline: Tripetto.Storyline<IBlockRenderer>) => {
                         {!storyline.isAtStart && (
                             <button
                                 type="button"
-                                className="btn btn-default mr-2"
+                                className="btn btn-light mr-2"
                                 disabled={storyline.isAtStart}
                                 onClick={() => storyline.stepBackward()}
                             >
