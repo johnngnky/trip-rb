@@ -10,6 +10,10 @@ export class Header extends React.PureComponent<{
     editor: Editor;
     reset: () => void;
 }> {
+    readonly state = {
+        isOpen: false
+    };
+
     private get collector(): Collector {
         if (this.props.collector.current instanceof Collector) {
             return this.props.collector.current;
@@ -22,57 +26,7 @@ export class Header extends React.PureComponent<{
         return this.collector.blocks;
     }
 
-    render(): React.ReactNode {
-        return (
-            <>
-                <div className="container-fluid">
-                    <div className="row">
-                        <div className="col-9 col-lg-6 d-flex align-items-center">
-                            <button
-                                type="button"
-                                className="btn btn-secondary mr-3 d-lg-none"
-                                title="Open the editor"
-                                id="editor_button"
-                                onClick={() => this.toggleEditor()}
-                            >
-                                Edit
-                            </button>
-                            <h1 className="mr-1 mr-md-3 text-truncate" onClick={() => this.props.editor.edit()}>
-                                {this.blocks.name || "Unnamed"}
-                            </h1>
-                            <div className="d-none d-lg-block text-nowrap">{this.renderButtonsDocs(false)}</div>
-                        </div>
-                        <div className="col-3 col-lg-6 d-flex justify-content-end align-items-center">
-                            <div className="d-none d-lg-block">{this.renderButtonsControls(false)}</div>
-                            <div className="d-lg-none">
-                                <button
-                                    className="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenu"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <i className="fas fa-cog fa-fw mr-1" />
-                                </button>
-                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                                    <h6 className="dropdown-header">Demo documentation</h6>
-                                    {this.renderButtonsDocs(true)}
-                                    <div className="dropdown-divider" />
-                                    <h6 className="dropdown-header">Demo controls</h6>
-                                    {this.renderButtonsControls(true)}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {settingsModal(this.collector)}
-            </>
-        );
-    }
-
-    public renderButtonsDocs(dropdown: boolean): React.ReactNode {
+    private links(dropdown: boolean): React.ReactNode {
         return (
             <>
                 <a
@@ -106,7 +60,7 @@ export class Header extends React.PureComponent<{
         );
     }
 
-    public renderButtonsControls(dropdown: boolean): React.ReactNode {
+    private controls(dropdown: boolean): React.ReactNode {
         return (
             <>
                 {!this.blocks.preview && (
@@ -180,17 +134,64 @@ export class Header extends React.PureComponent<{
         );
     }
 
-    /** Toggles the editor to show/hide. */
-    toggleEditor(): void {
+    private toggleEditor(): void {
         const editor = document.getElementById("editor");
-        const editor_button = document.getElementById("editor_button");
 
-        if (editor && editor_button) {
+        if (editor) {
             editor.classList.toggle("show");
-            editor_button.classList.toggle("btn-success");
-            editor_button.classList.toggle("btn-secondary");
-            editor_button.title = editor_button.classList.contains("btn-success") ? "Close the editor" : "Open the editor";
-            setTimeout(() => this.props.editor.resize(), 250);
         }
+
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
+
+    render(): React.ReactNode {
+        return (
+            <>
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col-9 col-lg-6 d-flex align-items-center">
+                            <button
+                                type="button"
+                                className={`btn mr-3 d-lg-none ${this.state.isOpen ? "btn-success" : "btn-secondary"}`}
+                                title={this.state.isOpen ? "Close the editor" : "Open the editor"}
+                                onClick={() => this.toggleEditor()}
+                            >
+                                Edit
+                            </button>
+                            <h1 className="mr-1 mr-md-3 text-truncate" onClick={() => this.props.editor.edit()}>
+                                {this.blocks.name || "Unnamed"}
+                            </h1>
+                            <div className="d-none d-lg-block text-nowrap">{this.links(false)}</div>
+                        </div>
+                        <div className="col-3 col-lg-6 d-flex justify-content-end align-items-center">
+                            <div className="d-none d-lg-block">{this.controls(false)}</div>
+                            <div className="d-lg-none">
+                                <button
+                                    className="btn btn-secondary dropdown-toggle"
+                                    type="button"
+                                    id="dropdownMenu"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                >
+                                    <i className="fas fa-cog fa-fw mr-1" />
+                                </button>
+                                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                                    <h6 className="dropdown-header">Demo documentation</h6>
+                                    {this.links(true)}
+                                    <div className="dropdown-divider" />
+                                    <h6 className="dropdown-header">Demo controls</h6>
+                                    {this.controls(true)}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {settingsModal(this.collector)}
+            </>
+        );
     }
 }
