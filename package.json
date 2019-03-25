@@ -52,7 +52,7 @@
     "superagent": "^4.1.0",
     "tripetto": "^1.0.2",
     "tripetto-block-checkbox": "^2.0.0",
-    "tripetto-block-checkboxes": "^2.0.1",
+    "tripetto-block-checkboxes": "^2.0.2",
     "tripetto-block-dropdown": "^2.0.0",
     "tripetto-block-email": "^2.0.0",
     "tripetto-block-number": "^2.0.0",
