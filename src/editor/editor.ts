@@ -5,7 +5,7 @@ import "./editor.scss";
 export const create = (element: HTMLElement | null, definition?: IDefinition) =>
     Editor.open(definition, {
         element: element,
-        fonts: "/fonts/",
+        fonts: "fonts/",
         disableSaveButton: true,
         disableRestoreButton: true,
         disableClearButton: false,

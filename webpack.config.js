@@ -6,7 +6,7 @@ module.exports = {
     entry: "./src/app.tsx",
     output: {
         filename: "bundle.js",
-        path: __dirname + "/static"
+        path: __dirname + "/public"
     },
     module: {
         rules: [
@@ -60,7 +60,7 @@ module.exports = {
         new copy([{ from: "node_modules/tripetto/fonts/", to: "fonts/" }])
     ],
     devServer: {
-        contentBase: path.join(__dirname, "static"),
+        contentBase: path.join(__dirname, "public"),
         port: 9000,
         host: "0.0.0.0"
     }
