@@ -8,9 +8,7 @@ Tripetto is a full-fledged form kit. Rapidly create and deploy smart flowing for
 [![docs](https://img.shields.io/badge/docs-website-blue.svg)](https://docs.tripetto.com/guide/collector)
 [![Join the community on Spectrum](https://withspectrum.github.io/badge/badge.svg)](https://spectrum.chat/tripetto)
 
-This demo shows how to implement the collector for some basic form input controls using [React](https://reactjs.org/) and [Bootstrap](http://getbootstrap.com/). The goal is to show you how to implement Tripetto with minimal code footprint so you get a good understanding of the principles. In this example the browser window is split in two. At the left side you see the editor and at the right side the collector. Use the editor to create a form definition. It will run in the collector at the right. At the top is a header with the title of the form definition and some controls for demo purposes (like start/pause/stop the collector).
-
-This example uses a set of common Tripetto blocks imported from npm. It also contains some boilerplate code for a custom building block to get you going.
+This demo shows how to implement the collector using the [Tripetto Standard Collector](https://www.npmjs.com/package/tripetto-collector-standard-bootstrap), [React](https://reactjs.org/) and [Bootstrap](http://getbootstrap.com/). The goal is to show you how to implement Tripetto with minimal code footprint so you get a good understanding of the principles. In this example the browser window is split in two. At the left side you see the editor and at the right side the collector. Use the editor to create a form definition. It will run in the collector at the right. At the top is a header with the title of the form definition and some controls for demo purposes (like start/pause/stop the collector).
 
 [![Try the demo](https://docs.tripetto.com/assets/button-demo.svg)](https://example-react-bootstrap.tripetto.com/)
 

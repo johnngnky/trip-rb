@@ -1,11 +1,11 @@
 import * as React from "react";
+import { Collector } from "tripetto-collector-standard-bootstrap";
 import { Editor } from "tripetto";
-import { Collector } from "../collector/collector";
-import { Blocks } from "../collector/helpers/blocks";
 import { settingsModal } from "./settings";
 import "./header.scss";
+import "bootstrap";
 
-export class Header extends React.PureComponent<{
+export class Header extends React.Component<{
     collector: React.RefObject<Collector>;
     editor: Editor;
     reset: () => void;
@@ -22,15 +22,11 @@ export class Header extends React.PureComponent<{
         throw new Error("Collector ref is not available!");
     }
 
-    private get blocks(): Blocks {
-        return this.collector.blocks;
-    }
-
     private links(dropdown: boolean): React.ReactNode {
         return (
             <>
                 <a
-                    href="https://gitlab.com/tripetto/examples/react"
+                    href="https://gitlab.com/tripetto/examples/react-conversational"
                     target="_blank"
                     role="button"
                     className={`btn btn-sm btn-link${dropdown ? " dropdown-item" : ""}`}
@@ -39,7 +35,7 @@ export class Header extends React.PureComponent<{
                     Get source
                 </a>
                 <a
-                    href="https://gitlab.com/tripetto/examples/react/blob/master/README.md"
+                    href="https://gitlab.com/tripetto/examples/react-conversational/blob/master/README.md"
                     target="_blank"
                     role="button"
                     className={`btn btn-sm btn-link${dropdown ? " dropdown-item" : ""}`}
@@ -63,7 +59,7 @@ export class Header extends React.PureComponent<{
     private controls(dropdown: boolean): React.ReactNode {
         return (
             <>
-                {!this.blocks.preview && (
+                {this.collector.view === "normal" && (
                     <>
                         <div
                             className={`btn-group controls ${dropdown ? "px-4 py-2 offset-down" : "mr-1 mr-sm-4"}`}
@@ -73,8 +69,17 @@ export class Header extends React.PureComponent<{
                             <button
                                 type="button"
                                 className="btn btn-primary"
+                                title="Restart form"
+                                disabled={!this.collector.isRunning}
+                                onClick={() => this.collector.restart()}
+                            >
+                                <i className="fas fa-redo fa-fw" />
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
                                 title="Start form"
-                                disabled={this.blocks.isEmpty || (!this.blocks.isStopped && !this.blocks.isFinished)}
+                                disabled={this.collector.isEmpty || (!this.collector.isStopped && !this.collector.isFinished)}
                                 onClick={() => this.collector.start()}
                             >
                                 <i className="fas fa-play fa-fw" />
@@ -83,7 +88,7 @@ export class Header extends React.PureComponent<{
                                 type="button"
                                 className="btn btn-primary"
                                 title="Pause form"
-                                disabled={!this.blocks.isRunning}
+                                disabled={!this.collector.isRunning}
                                 onClick={() => this.collector.pause()}
                             >
                                 <i className="fas fa-pause fa-fw" />
@@ -92,7 +97,7 @@ export class Header extends React.PureComponent<{
                                 type="button"
                                 className="btn btn-primary"
                                 title="Stop form"
-                                disabled={!this.blocks.isRunning}
+                                disabled={!this.collector.isRunning}
                                 onClick={() => this.collector.stop()}
                             >
                                 <i className="fas fa-stop fa-fw" />
@@ -113,19 +118,19 @@ export class Header extends React.PureComponent<{
                 <div className={`btn-group btn-group-toggle${dropdown ? " px-4 py-2" : ""}`} data-toggle="buttons">
                     <button
                         type="button"
-                        className={`btn ${!this.blocks.preview ? "btn-success" : "btn-secondary"}`}
+                        className={`btn ${this.collector.view === "normal" ? "btn-success" : "btn-secondary"}`}
                         data-toggle="button"
-                        aria-pressed={!this.blocks.preview}
-                        onClick={() => (this.blocks.preview = false)}
+                        aria-pressed={this.collector.view === "normal"}
+                        onClick={() => (this.collector.view = "normal")}
                     >
                         Collect
                     </button>
                     <button
                         type="button"
-                        className={`btn ${this.blocks.preview ? "btn-success" : "btn-secondary"}`}
+                        className={`btn ${this.collector.view !== "normal" ? "btn-success" : "btn-secondary"}`}
                         data-toggle="button"
-                        aria-pressed={this.blocks.preview}
-                        onClick={() => (this.blocks.preview = true)}
+                        aria-pressed={this.collector.view !== "normal"}
+                        onClick={() => (this.collector.view = "preview")}
                     >
                         Preview
                     </button>
@@ -146,7 +151,7 @@ export class Header extends React.PureComponent<{
         });
     }
 
-    render(): React.ReactNode {
+    public render(): React.ReactNode {
         return (
             <>
                 <div className="container-fluid">
@@ -161,7 +166,7 @@ export class Header extends React.PureComponent<{
                                 Edit
                             </button>
                             <h1 className="mr-1 mr-md-3 text-truncate" onClick={() => this.props.editor.edit()}>
-                                {this.blocks.name || "Unnamed"}
+                                {this.collector.name || "Unnamed"}
                             </h1>
                             <div className="d-none d-lg-block text-nowrap">{this.links(false)}</div>
                         </div>

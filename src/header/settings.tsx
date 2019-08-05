@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Collector } from "../collector/collector";
+import { Collector } from "tripetto-collector-standard-bootstrap";
+import { castToBoolean, extendImmutable } from "tripetto-collector";
 
 export const settingsModal = (collector: Collector) => (
     <div className="modal" id="settingsModal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
@@ -21,8 +22,8 @@ export const settingsModal = (collector: Collector) => (
                                 type="radio"
                                 id="setting-mode-paginated"
                                 name="mode"
-                                defaultChecked={collector.blocks.mode === "paginated"}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.blocks.mode = "paginated")}
+                                defaultChecked={collector.mode === "paginated"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.mode = "paginated")}
                                 className="custom-control-input"
                                 aria-describedby="setting-mode-paginated-label"
                             />
@@ -39,8 +40,8 @@ export const settingsModal = (collector: Collector) => (
                                 type="radio"
                                 id="setting-mode-continuous"
                                 name="mode"
-                                defaultChecked={collector.blocks.mode === "continuous"}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.blocks.mode = "continuous")}
+                                defaultChecked={collector.mode === "continuous"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.mode = "continuous")}
                                 className="custom-control-input"
                                 aria-describedby="setting-mode-continuous-label"
                             />
@@ -56,8 +57,8 @@ export const settingsModal = (collector: Collector) => (
                                 type="radio"
                                 id="setting-mode-progressive"
                                 name="mode"
-                                defaultChecked={collector.blocks.mode === "progressive"}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.blocks.mode = "progressive")}
+                                defaultChecked={collector.mode === "progressive"}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => (collector.mode = "progressive")}
                                 className="custom-control-input"
                                 aria-describedby="setting-mode-progressive-label"
                             />
@@ -76,11 +77,11 @@ export const settingsModal = (collector: Collector) => (
                                 <input
                                     id="setting-enumerators"
                                     type="checkbox"
-                                    defaultChecked={collector.settings.enumerators}
+                                    defaultChecked={castToBoolean(collector.style.showEnumerators)}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        collector.changeSettings({
-                                            enumerators: e.target.checked
-                                        })
+                                        (collector.style = extendImmutable(collector.style, {
+                                            showEnumerators: e.target.checked
+                                        }))
                                     }
                                     className="custom-control-input"
                                     aria-describedby="setting-enumerators-label"
@@ -93,17 +94,17 @@ export const settingsModal = (collector: Collector) => (
                                 </label>
                             </div>
                         </div>
-                        {collector.blocks.mode === "paginated" && (
+                        {collector.mode === "paginated" && (
                             <div className="form-group">
                                 <div className="custom-control custom-checkbox">
                                     <input
                                         id="setting-pages"
                                         type="checkbox"
-                                        defaultChecked={collector.settings.pages}
+                                        defaultChecked={castToBoolean(collector.style.showPageIndicators)}
                                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                            collector.changeSettings({
-                                                pages: e.target.checked
-                                            })
+                                            (collector.style = extendImmutable(collector.style, {
+                                                showPageIndicators: e.target.checked
+                                            }))
                                         }
                                         className="custom-control-input"
                                         aria-describedby="setting-pages-label"
@@ -111,7 +112,7 @@ export const settingsModal = (collector: Collector) => (
                                     <label htmlFor="setting-pages" className="custom-control-label">
                                         Pages
                                         <small className="form-text text-secondary" id="setting-pages-label">
-                                            Shows an index with pages (only works in paginated mode).
+                                            Shows an index with pages (only works in paginated mode when there is more than 1 page).
                                         </small>
                                     </label>
                                 </div>
@@ -120,35 +121,13 @@ export const settingsModal = (collector: Collector) => (
                         <div className="form-group">
                             <div className="custom-control custom-checkbox">
                                 <input
-                                    id="setting-buttons"
-                                    type="checkbox"
-                                    defaultChecked={collector.settings.buttons === "sticky"}
-                                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        collector.changeSettings({
-                                            buttons: e.target.checked ? "sticky" : "inline"
-                                        })
-                                    }
-                                    className="custom-control-input"
-                                    aria-describedby="setting-buttons-label"
-                                />
-                                <label htmlFor="setting-buttons" className="custom-control-label">
-                                    Sticky buttons
-                                    <small className="form-text text-secondary" id="setting-buttons-label">
-                                        Shows navigation buttons sticky to bottom instead of inline.
-                                    </small>
-                                </label>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                                <input
                                     id="setting-progressbar"
                                     type="checkbox"
-                                    defaultChecked={collector.settings.progressbar}
+                                    defaultChecked={castToBoolean(collector.style.showProgressbar, true)}
                                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                        collector.changeSettings({
-                                            progressbar: e.target.checked
-                                        })
+                                        (collector.style = extendImmutable(collector.style, {
+                                            showProgressbar: e.target.checked
+                                        }))
                                     }
                                     className="custom-control-input"
                                     aria-describedby="setting-progressbar-label"
@@ -156,7 +135,7 @@ export const settingsModal = (collector: Collector) => (
                                 <label htmlFor="setting-progressbar" className="custom-control-label">
                                     Progressbar
                                     <small className="form-text text-secondary" id="setting-progressbar-label">
-                                        Shows a progressbar.
+                                        Shows a progressbar in the navigation bar.
                                     </small>
                                 </label>
                             </div>

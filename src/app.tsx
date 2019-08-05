@@ -1,21 +1,24 @@
-import * as Editor from "./editor/editor";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as Superagent from "superagent";
-import { Collector } from "./collector/collector";
+import { Collector, ICollectorSnapshot } from "tripetto-collector-standard-bootstrap";
 import { Export, ISnapshot, Instance } from "tripetto-collector";
 import { Header } from "./header/header";
-import { IDefinition, IEditorChangeEvent, IEditorReadyEvent } from "tripetto";
-import "bootstrap";
+import { Editor, IDefinition, IEditorChangeEvent, IEditorEditEvent, IEditorReadyEvent } from "tripetto";
 import "./app.scss";
 
-const DEFINITION = "tripetto-example-react-bootstrap-definition";
-const SNAPSHOT = "tripetto-example-react-bootstrap-snapshot";
+/**
+ * The collector package also contains the editor implementation of the blocks.
+ * We import them here, so the editor can use the blocks.
+ */
+import "tripetto-collector-standard-bootstrap/editor/es5";
 
 // For this demo we use the local store to save the definition and snapshot.
 // Here we try to retrieve that saved data.
+const DEFINITION = "tripetto-example-react-bootstrap-definition";
+const SNAPSHOT = "tripetto-example-react-bootstrap-snapshot";
 const definition: IDefinition = JSON.parse(localStorage.getItem(DEFINITION) || "null") || undefined;
-const snapshot: ISnapshot = JSON.parse(localStorage.getItem(SNAPSHOT) || "null") || undefined;
+const snapshot: ISnapshot<ICollectorSnapshot> = JSON.parse(localStorage.getItem(SNAPSHOT) || "null") || undefined;
 let demoDefinition: IDefinition;
 
 // Fetch our demo form
@@ -31,14 +34,21 @@ Superagent.get("demo.json").end((error: {}, response: Superagent.Response) => {
 });
 
 // Create the editor.
-const editor = Editor.create(document.getElementById("editor"), definition);
+const editor = Editor.open(definition, {
+    element: document.getElementById("editor"),
+    fonts: "fonts/",
+    disableSaveButton: true,
+    disableRestoreButton: true,
+    disableClearButton: false,
+    disableCloseButton: true,
+    supportURL: false,
+    disableOpenCloseAnimation: true,
+    showTutorial: true,
+    zoom: "fit-horizontal"
+});
 
 // Wait until the editor is ready!
 editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
-    // We use refs to allow the header and collector component to talk to each other.
-    // We could have implemented the header inside the collector component.
-    // But this header has some specific controls for this demo you normally wouldn't have in a real world application.
-    // By keeping them separated you can just copy and paste the collector component and use it in your own project.
     const header = React.createRef<Header>();
     const collector = React.createRef<Collector>();
 
@@ -48,7 +58,12 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
             ref={collector}
             definition={editorEvent.definition}
             snapshot={snapshot}
-            update={header}
+            onChange={() => {
+                if (header.current) {
+                    header.current.forceUpdate();
+                }
+            }}
+            onEditRequest={(nodeId: string) => editor.edit(nodeId)}
             onFinish={(i: Instance) => {
                 // Output the collected data to the console for demo purposes.
                 console.dir(Export.fields(i));
@@ -56,7 +71,7 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
                 // Output can also be exported as CSV for your convenience.
                 console.dir(Export.CSV(i));
             }}
-            onPause={(s: ISnapshot) => {
+            onPaused={(s: ISnapshot<ICollectorSnapshot>) => {
                 // Store the snapshot in the local store, so we can restore it on browser refresh.
                 localStorage.setItem(SNAPSHOT, JSON.stringify(s));
             }}
@@ -77,7 +92,7 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
                 editor.definition = demoDefinition;
 
                 if (collector.current) {
-                    collector.current.reset();
+                    collector.current.restart();
                 }
             }}
         />,
@@ -94,9 +109,22 @@ editor.hook("OnReady", "synchronous", (editorEvent: IEditorReadyEvent) => {
             collector.current.reload(changeEvent.definition);
         }
     });
-});
 
-// When the host window resizes, we should notify the editor component about that.
-// This is only necessary when you embed the editor in a custom element.
-window.addEventListener("resize", () => editor.resize());
-window.addEventListener("orientationchange", () => editor.resize());
+    editor.hook("OnEdit", "synchronous", (editEvent: IEditorEditEvent) => {
+        if (collector.current && collector.current.view !== "normal" && editEvent.type === "node" && editEvent.id) {
+            collector.current.requestPreview(editEvent.id);
+        }
+    });
+
+    const fnResize = () => {
+        editor.resize();
+
+        if (collector.current) {
+            collector.current.resize();
+        }
+    };
+
+    // When the host window resizes, we should notify the editor and collector component about that.
+    window.addEventListener("resize", () => fnResize());
+    window.addEventListener("orientationchange", () => fnResize());
+});
