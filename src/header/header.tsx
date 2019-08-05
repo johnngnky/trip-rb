@@ -26,7 +26,7 @@ export class Header extends React.Component<{
         return (
             <>
                 <a
-                    href="https://gitlab.com/tripetto/examples/react-conversational"
+                    href="https://gitlab.com/tripetto/examples/react"
                     target="_blank"
                     role="button"
                     className={`btn btn-sm btn-link${dropdown ? " dropdown-item" : ""}`}
@@ -35,7 +35,7 @@ export class Header extends React.Component<{
                     Get source
                 </a>
                 <a
-                    href="https://gitlab.com/tripetto/examples/react-conversational/blob/master/README.md"
+                    href="https://gitlab.com/tripetto/examples/react/blob/master/README.md"
                     target="_blank"
                     role="button"
                     className={`btn btn-sm btn-link${dropdown ? " dropdown-item" : ""}`}
